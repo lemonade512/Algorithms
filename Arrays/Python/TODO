@@ -1,0 +1,13 @@
+# Tags to use as comments:
+#    DONE = a finished task
+#    TODO = general things that need doing
+#    FIXME = general cleanup tasks
+#    NOTE = general note
+#    BUG = A bug in the program that needs to be fixed
+#    XXX = badly designed code
+#
+# ------------------------------------------------------------------------------
+# 5/18/14 TODO: Make a triangular array class
+# 5/18/14 TODO: Make a Sparse array class
+# 5/18/14 TODO: Find a way to use inheritance for all arrays? (this would
+#               allow reuse of common code like FindAverage or FindMinimum)
