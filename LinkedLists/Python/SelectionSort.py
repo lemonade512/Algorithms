@@ -1,12 +1,12 @@
 #!/usr/bin/python
 
-from LinkedList import LinkedList, IntegerCell
-import CopyLinkedList
+from LinkedList import LinkedList, Cell
+from CopyLinkedList import CopyList
 
 def SelectionSort(old_list):
     sorted_list = LinkedList()
 
-    new_list = CopyLinkedList.CopyList(old_list)
+    new_list = CopyList(old_list)
     input = new_list.top
     while input.next != None:
         best_after_me = input
@@ -22,17 +22,17 @@ def SelectionSort(old_list):
         best_cell = best_after_me.next
         best_after_me.next = best_cell.next
 
-        sorted_list.AddAtBeginning(best_cell)
+        sorted_list.prepend(best_cell)
     return sorted_list
 
 if __name__ == "__main__":
     list1 = LinkedList()
-    list1.AddAtEnd(IntegerCell(3))
-    list1.AddAtEnd(IntegerCell(14))
-    list1.AddAtEnd(IntegerCell(7))
-    list1.AddAtEnd(IntegerCell(9))
-    list1.AddAtEnd(IntegerCell(12))
-    list1.AddAtEnd(IntegerCell(1))
+    list1.append(3)
+    list1.append(14)
+    list1.append(7)
+    list1.append(9)
+    list1.append(12)
+    list1.append(1)
     print "Unsorted List: ", list1
     list2 = SelectionSort(list1)
     print "Sorted List: ", list2

@@ -1,16 +1,27 @@
 #!/usr/bin/python
+'''
+Date Created: Unknown
+Author: Phillip Lemons
+Modified on: 5/18/14
+'''
 
-class IntegerCell:
+class Cell:
 
     def __init__(self, value):
         self.value = value
         self.next = None
         self.visited = False
 
+    def __str__(self):
+        return str(self.value)
+
+    def __repr__(self):
+        return repr(self.value)
+
 class LinkedList:
 
     def __init__(self):
-        self.top = IntegerCell(None)
+        self.top = Cell(None)
         self.bottom = self.top
 
     def __len__(self):
@@ -34,13 +45,16 @@ class LinkedList:
         string += '\nBottom: ' + str(self.bottom.value)
         return string
 
-    def Iterate(self):
+    def __iter__(self):
         top = self.top
         while top != None:
-            print top.value
+            yield top
             top = top.next
 
-    def FindCell(self, target):
+    def get_bottom(self):
+        return self.bottom
+
+    def find_cell(self, target):
         top = self.top
         while top != None:
             if top.value == target:
@@ -49,7 +63,7 @@ class LinkedList:
 
         return None
 
-    def FindCellBefore(self, target):
+    def find_cell_before(self, target):
         top = self.top
         while top.next != None:
             if top.next.value == target:
@@ -58,13 +72,17 @@ class LinkedList:
 
         return None
 
-    def AddAtBeginning(self, new_cell):
+    def prepend(self, new_value):
+        new_cell = Cell(new_value)
+
         if self.top == self.bottom:
             self.bottom = new_cell
         new_cell.next = self.top.next
         self.top.next = new_cell
 
-    def AddAtEnd(self, new_cell):
+    def append(self, new_value):
+        new_cell = Cell(new_value)
+
         top = self.top
         while top.next != None:
             top = top.next
@@ -73,14 +91,22 @@ class LinkedList:
         new_cell.next = None
         self.bottom = new_cell
 
-    def InsertCell(self, after_me, new_cell):
+    # This currently will not work if there are duplicates of the value
+    # passed into <after_me>. Perhaps this actually is better using cells
+    # instead of passing values?
+    def insert(self, after_me, new_cell):
+        #after_me_cell = self.find_cell(after_me)
+        #new_cell = Cell(new_value)
+
         if after_me.next == None:
             self.bottom = new_cell
         new_cell.next = after_me.next
         after_me.next = new_cell
 
     # Inserts new_cell into a sorted linked list
-    def InsertSorted(self, new_cell):
+    def insert_sorted(self, new_value):
+        new_cell = Cell(new_value)
+
         top = self.top
         while top.next != None and top.next.value < new_cell.value:
             top = top.next
@@ -90,7 +116,17 @@ class LinkedList:
         new_cell.next = top.next
         top.next = new_cell
 
-    def DeleteAfter(self, after_me):
+    def delete(self, target):
+        top = self.top
+        while (top.next != target):
+            if top.next == None:
+                print str(target) + " is not in list"
+                return
+            top = top.next
+
+        self.DeleteAfter(top)
+
+    def delete_after(self, after_me):
         if after_me.next.next == None:
             self.bottom = after_me
         if after_me.next != None:
