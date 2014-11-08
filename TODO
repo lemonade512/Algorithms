@@ -11,7 +11,7 @@
 # 5/18/14 TODO: Make a Sparse array class
 # 5/18/14 TODO: Find a way to use inheritance for all arrays? (this would
 #               allow reuse of common code like FindAverage or FindMinimum)
-# 5/18/14 TODO: Add test cases to Arrays section (especially look at 
+# 5/18/14 TODO: Add test cases to Arrays section (especially look at
 #               ArrayStats)
 # ------------------------------------------------------------------------------
 # 5/18/14 TODO: Clean up interface for LinkedList
@@ -24,6 +24,8 @@
 #               print statements for improper use of classes
 # 5/18/14 TODO: Run profiling tools for different algorithms (e.g. the
 #               LinkedListStack vs the ArrayStack)
-# 5/18/14 TODO: Go through all the __main__ functions and modify them to 
+# 5/18/14 TODO: Go through all the __main__ functions and modify them to
 #               print statements with more informations on what is happening
 # 5/18/14 TODO: Make an error class directory to have all user-defined errors
+# ------------------------------------------------------------------------------
+# 11/8/14 TODO: Add a bin folder to hold all c++ executables
