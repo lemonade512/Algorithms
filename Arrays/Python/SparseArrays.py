@@ -33,7 +33,7 @@ class ArrayEntry:
     def __repr__(self):
         return "(" + str(self.column_number) + ", " + str(self.value) + ")"
 
-def PrintSparseArray(sentinel):
+def print_sparse_array(sentinel):
     row_sentinel = sentinel
     if row_sentinel.next_row != None:
         row_sentinel = row_sentinel.next_row
@@ -45,15 +45,15 @@ def PrintSparseArray(sentinel):
         print row_sentinel
         row_sentinel = row_sentinel.next_row
 
-def FindRowBefore(row, array_row_sentinel):
+def find_row_before(row, array_row_sentinel):
     array_row = array_row_sentinel
-    while (array_row.next_row != None and 
+    while (array_row.next_row != None and
            array_row.next_row.row_number < row):
         array_row = array_row.next_row
-        
+
     return array_row
 
-def FindColumnBefore(column, row_sentinel):
+def find_column_before(column, row_sentinel):
     array_entry = row_sentinel
     while (array_entry.next_entry != None and
            array_entry.next_entry.column_number < column):
@@ -61,15 +61,15 @@ def FindColumnBefore(column, row_sentinel):
 
     return array_entry
 
-def GetValue(row, col, array_sentinel):
-    array_row = FindRowBefore(row, array_sentinel)
+def get_value(row, col, array_sentinel):
+    array_row = find_row_before(row, array_sentinel)
     array_row = array_row.next_row
     if array_row == None:
         return DEFAULT
     if array_row.row_number > row:
         return DEFAULT
 
-    array_entry = FindColumnBefore(col, array_row.row_sentinel)
+    array_entry = find_column_before(col, array_row.row_sentinel)
     array_entry = array_entry.next_entry
     if array_entry == None:
         return DEFAULT
@@ -77,12 +77,12 @@ def GetValue(row, col, array_sentinel):
         return DEFAULT
     return array_entry.value
 
-def SetValue(row, col, value, array_sentinel):
+def set_value(row, col, value, array_sentinel):
     if value == DEFAULT:
-        DeleteEntry(row, col, array_sentinel)
+        delete_entry(row, col, array_sentinel)
         return
 
-    array_row = FindRowBefore(row, array_sentinel)
+    array_row = find_row_before(row, array_sentinel)
 
     if (array_row.next_row == None or
         array_row.next_row.row_number > row):
@@ -95,7 +95,7 @@ def SetValue(row, col, value, array_sentinel):
         new_row.row_sentinel = sentinel_entry
 
     array_row = array_row.next_row
-    array_entry = FindColumnBefore(col, array_row.row_sentinel)
+    array_entry = find_column_before(col, array_row.row_sentinel)
 
     if (array_entry.next_entry == None or
         array_entry.next_entry.column_number > col):
@@ -107,15 +107,15 @@ def SetValue(row, col, value, array_sentinel):
     array_entry = array_entry.next_entry
     array_entry.value = value
 
-def DeleteEntry(row, col, array_sentinel):
-    array_row = FindRowBefore(row, array_sentinel)
+def delete_entry(row, col, array_sentinel):
+    array_row = find_row_before(row, array_sentinel)
 
     if (array_row.next_row == None or
         array_row.next_row.row_number > row):
         return
 
     target_row = array_row.next_row
-    array_entry = FindColumnBefore(col, target_row.row_sentinel)
+    array_entry = find_column_before(col, target_row.row_sentinel)
 
     if (array_entry.next_entry == None or
         array_entry.next_entry.column_number > col):
@@ -128,7 +128,7 @@ def DeleteEntry(row, col, array_sentinel):
 
     array_row.next_row = array_row.next_row.next_row
 
-def MakeTestArray():
+def make_test_array():
     row_sentinel = ArrayRow()
     r0 = ArrayRow()
     r1 = ArrayRow()
@@ -177,40 +177,40 @@ def MakeTestArray():
     return row_sentinel
 
 if __name__ == "__main__":
-    test_array_sentinel = MakeTestArray()
+    test_array_sentinel = make_test_array()
     print "Test Array"
     print "-----------------------------------------"
-    PrintSparseArray(test_array_sentinel)
+    print_sparse_array(test_array_sentinel)
     print "-----------------------------------------"
     print "\nFind Before methods"
     print "-----------------------------------------"
-    print "Row before 2: " + str(FindRowBefore(2, test_array_sentinel))
-    print "Row before 4: " + str(FindRowBefore(4, test_array_sentinel))
-    row = FindRowBefore(1, test_array_sentinel)
+    print "Row before 2: " + str(find_row_before(2, test_array_sentinel))
+    print "Row before 4: " + str(find_row_before(4, test_array_sentinel))
+    row = find_row_before(1, test_array_sentinel)
     print "Column before 7 in Row #0: " + \
-           str(FindColumnBefore(7, row.row_sentinel))
+           str(find_column_before(7, row.row_sentinel))
     print "-----------------------------------------"
     print "\nGet and Set methods"
     print "-----------------------------------------"
-    print "Get (0,4): " + str(GetValue(0,4, test_array_sentinel))
-    print "Get (0,5): " + str(GetValue(0,5, test_array_sentinel))
-    print "Get (3,1): " + str(GetValue(3,1, test_array_sentinel))
+    print "Get (0,4): " + str(get_value(0,4, test_array_sentinel))
+    print "Get (0,5): " + str(get_value(0,5, test_array_sentinel))
+    print "Get (3,1): " + str(get_value(3,1, test_array_sentinel))
     print "Setting (0,8) to 5"
-    SetValue(0,8, 5, test_array_sentinel)
-    print "Get (0,8): " + str(GetValue(0,8, test_array_sentinel))
+    set_value(0,8, 5, test_array_sentinel)
+    print "Get (0,8): " + str(get_value(0,8, test_array_sentinel))
     print "Setting (0,5) to 3"
-    SetValue(0,5, 3, test_array_sentinel)
-    print "Get (0,5): " + str(GetValue(0,5, test_array_sentinel))
+    set_value(0,5, 3, test_array_sentinel)
+    print "Get (0,5): " + str(get_value(0,5, test_array_sentinel))
     print "Setting (3,1) to 4"
-    SetValue(3,1, 4, test_array_sentinel)
-    print "Get (3,1): " + str(GetValue(3,1, test_array_sentinel))
+    set_value(3,1, 4, test_array_sentinel)
+    print "Get (3,1): " + str(get_value(3,1, test_array_sentinel))
     print "-----------------------------------------"
     print "\nDelete Method"
     print "-----------------------------------------"
     print "Deleting (0,5)"
-    DeleteEntry(0,5, test_array_sentinel)
+    delete_entry(0,5, test_array_sentinel)
     print "Deleting (4,0)"
-    DeleteEntry(4,0, test_array_sentinel)
+    delete_entry(4,0, test_array_sentinel)
     print "Setting (0,5) to 0"
-    SetValue(0,5, 0, test_array_sentinel)
-    PrintSparseArray(test_array_sentinel)
+    set_value(0,5, 0, test_array_sentinel)
+    print_sparse_array(test_array_sentinel)

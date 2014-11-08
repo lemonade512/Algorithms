@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-def IndexOf(array, target):
+def index_of(array, target):
     for i in range(len(array)):
         if array[i] == target:
             return i

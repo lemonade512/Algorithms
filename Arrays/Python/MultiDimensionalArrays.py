@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-def InitializeArray(bounds):
+def initialize_array(bounds):
     NumDimensions = len(bounds) / 2
     LowerBound = [0 for x in range(NumDimensions)]
     SliceSize = [0 for x in range(NumDimensions)]
@@ -17,7 +17,7 @@ def InitializeArray(bounds):
     Values = [0 for x in range(slice_size)]
     return (Values, LowerBound, SliceSize)
 
-def MapIndicesToIndex(indices, LowerBound, SliceSize):
+def mat_indices_to_index(indices, LowerBound, SliceSize):
     index = 0
     for i in range(len(indices)):
         index += (indices[i] - LowerBound[i]) * SliceSize[i]
@@ -25,11 +25,11 @@ def MapIndicesToIndex(indices, LowerBound, SliceSize):
     return index
 
 if __name__ == "__main__":
-    array, bounds, sizes = InitializeArray([0,2,0,2])
+    array, bounds, sizes = initialize_array([0,2,0,2])
     print "Before: " + str(array)
     val = 0
     for i in range(3):
         for j in range(3):
-            array[MapIndicesToIndex([i,j],bounds, sizes)] = val
+            array[map_indices_to_index([i,j],bounds, sizes)] = val
             val += 1
     print "After: " + str(array)
