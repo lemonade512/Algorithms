@@ -4,7 +4,7 @@ from LinkedList import LinkedList, IntegerCell
 
 def HasLoopMarking(sentinel):
     has_loop = False
-    
+
     cell = sentinel
     while cell.next != None:
         if cell.next.visited:
