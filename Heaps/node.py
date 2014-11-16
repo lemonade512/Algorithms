@@ -1,16 +1,34 @@
 #!/usr/bin/env python
 
 # TODO can we use the node class in graphs?
-class Node:
+class Node(object):
 
-    def __init__(self, val):
-        self.value = val
+    def __init__(self, data):
+        self.data = data
         self.children = []
+        self.parent = None
 
     def __repr__(self):
         return self._to_string()
 
-    def _degree(self):
+    def add_child(self, child):
+        # TODO check to see if child already has parent?
+        self.children.append(child)
+        child.parent = self
+
+    def cut(self, child):
+        """
+        Cuts child from the nodes children
+        """
+        for i, c in enumerate(self.children):
+            if c == child:
+                del self.children[i]
+                child.parent = None
+                return child
+
+        return None
+
+    def degree(self):
         if len(self.children) == 0:
             return 0
 
@@ -20,7 +38,7 @@ class Node:
                 #TODO add an error here
                 print "Recursive tree!"
                 exit()
-            values.append(child._degree())
+            values.append(child.degree())
 
         return max(values) + 1
 
@@ -28,7 +46,7 @@ class Node:
         if "\n" not in prefix:
             prefix = "\n" + prefix
 
-        string = prefix + "Node: " + str(self.value)
+        string = prefix + "Node: " + str(self.data)
         for c in self.children:
             if c == self:
                 print "Recursive loop"
