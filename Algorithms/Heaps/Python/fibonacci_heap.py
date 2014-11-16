@@ -15,6 +15,19 @@ class FibonacciHeapNode(Node):
     def mark(self):
         self.marked = True
 
+    def valid_heap(self):
+        if len(self.children) == 0:
+            return True
+
+        for child in self.children:
+            if child.key < self.key:
+                return False
+
+            if not child.valid_heap():
+                return False
+
+        return True
+
     def _to_string(self, prefix=""):
         if "\n" not in prefix:
             prefix = "\n" + prefix
@@ -22,8 +35,7 @@ class FibonacciHeapNode(Node):
         string = prefix + "Node: " + str(self.key)
         for c in self.children:
             if c == self:
-                print "Recursive loop"
-                return ""
+                return "Recursive loop"
             string += c._to_string(prefix + "--->")
 
         return string
@@ -47,6 +59,12 @@ class FibonacciHeap(object):
         """ Returns how many nodes are in the heap. """
         return self.count
 
+    def __iter__(self):
+        """ Iterates through all nodes by popping them. """
+        while len(self.trees) > 0:
+            node = self.pop()
+            yield node
+
     def insert(self, key, val):
         """ Creates a new node and inserts it into the heap.
 
@@ -64,6 +82,7 @@ class FibonacciHeap(object):
 
         # Update node count
         self.count += 1
+        assert(self._min_item_prop())
         return new_node
 
     def decrease_key(self, node, new_key):
@@ -96,6 +115,7 @@ class FibonacciHeap(object):
         if new_key < self.trees[self.min_idx].key:
             self.min_idx = len(self.trees) - 1
 
+        assert(self._min_item_prop())
         assert(self._heap_property())
 
     def delete(self, node):
@@ -122,6 +142,7 @@ class FibonacciHeap(object):
         heap = FibonacciHeap()
         heap.trees = self.trees + other.trees
         heap.count = self.count + other.count
+        heap._update_min_idx()
         return heap
 
     def peek(self):
@@ -141,8 +162,10 @@ class FibonacciHeap(object):
         children = self.trees[self.min_idx].children
         while len(children) > 0:
             child = children.pop()
+            child_data = child.data
             self.trees[self.min_idx].cut(child)
             self.trees.append(child)
+            assert(child.data == child_data)
 
         del self.trees[self.min_idx]
 
@@ -150,6 +173,8 @@ class FibonacciHeap(object):
         self._update_min_idx()
 
         assert(self._heap_property())
+        assert(self._min_item_prop())
+
         self.count -= 1
         return output
 
@@ -173,7 +198,7 @@ class FibonacciHeap(object):
 
     def _consolidate(self):
         # Link roots with the same degree until every root has different degree
-        max_degreei = int(math.ceil(math.log(self.count, 2)))
+        max_degree = int(math.ceil(math.log(self.count, 2)))
         degree_array = [[] for i in range(max_degree)] # Initialize a big enough array
         for root in self.trees:
             degree = root.degree()
@@ -216,6 +241,35 @@ class FibonacciHeap(object):
             if len(t) > 0:
                 self.trees.append(t[0])
 
+    def _min_item_prop(self):
+        if len(self.trees) == 0:
+            return True
+
+        expected_min_key = self.trees[self.min_idx].key
+        for t in self.trees:
+            min_key = self._find_min(t)
+            if min_key < expected_min_key:
+                expected_min_key = min_key
+
+        actual_min_key = self.trees[self.min_idx].key
+
+        if expected_min_key != actual_min_key:
+            return False
+
+        return True
+
+    def _find_min(self, node):
+        if len(node.children) == 0:
+            return node.key
+
+        min_key = node.key
+        for c in node.children:
+            new_key = self._find_min(c)
+            if new_key < min_key:
+                min_key = new_key
+
+        return min_key
+
     def _heap_property(self):
         """ Checks if the heap is a valid FibonacciHeap.
 
@@ -225,26 +279,12 @@ class FibonacciHeap(object):
             True if the heap is valid and False otherwise
         """
         for t in self.trees:
-            if not self._valid_heap(t):
+            if not t.valid_heap():
                 return False
 
         # Make sure none of the root nodes are marked
         for n in self.trees:
             if n.marked:
-                return False
-
-        return True
-
-    # TODO put this in FibonnaciHeapNode
-    def _valid_heap(self, node):
-        if len(node.children) == 0:
-            return True
-
-        for child in node.children:
-            if child.key < node.key:
-                return False
-
-            if not self._valid_heap(child):
                 return False
 
         return True

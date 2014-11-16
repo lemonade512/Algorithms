@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+dest="$(readlink -m $(dirname $0)/../tests/Python)"
+echo "Running tests in $dest"
+# To run with test coverage use the option --with-coverage
+nosetests $@ -w $dest
+
+# NOTE: You can use --nocapture to print output to stdout
+#       You can use --with-coverage to display coverage of tests
