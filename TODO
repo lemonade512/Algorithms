@@ -7,25 +7,27 @@
 #    XXX = badly designed code
 #
 # ------------------------------------------------------------------------------
-# 5/18/14 TODO: Make a triangular array class
-# 5/18/14 TODO: Make a Sparse array class
-# 5/18/14 TODO: Find a way to use inheritance for all arrays? (this would
-#               allow reuse of common code like FindAverage or FindMinimum)
-# 5/18/14 TODO: Add test cases to Arrays section (especially look at
+# 5/18/14  TODO: Make a triangular array class
+# 5/18/14  TODO: Make a Sparse array class
+# 5/18/14  TODO: Find a way to use inheritance for all arrays? (this would
+#                allow reuse of common code like FindAverage or FindMinimum)
+# 5/18/14  TODO: Add test cases to Arrays section (especially look at
 #               ArrayStats)
 # ------------------------------------------------------------------------------
-# 5/18/14 TODO: Clean up interface for LinkedList
-# 5/18/14 TODO: Make sure LinkedList uses efficient algorithms
-# 5/18/14 TODO: LinkedListStack should not need to import Cell
-# 5/18/14 NOTE: should review the interface for all the stack and queue classes
-# 5/18/14 TODO: Need to write stack sort algorithms
+# 5/18/14  TODO: Clean up interface for LinkedList
+# 5/18/14  TODO: Make sure LinkedList uses efficient algorithms
+# 5/18/14  TODO: LinkedListStack should not need to import Cell
+# 5/18/14  NOTE: should review the interface for all the stack and queue classes
+# 5/18/14  TODO: Need to write stack sort algorithms
 # ------------------------------------------------------------------------------
-# 5/18/14 TODO: Go through everything and use errors/exceptions instead of
-#               print statements for improper use of classes
-# 5/18/14 TODO: Run profiling tools for different algorithms (e.g. the
-#               LinkedListStack vs the ArrayStack)
-# 5/18/14 TODO: Go through all the __main__ functions and modify them to
-#               print statements with more informations on what is happening
-# 5/18/14 TODO: Make an error class directory to have all user-defined errors
+# 5/18/14  TODO: Go through everything and use errors/exceptions instead of
+#                print statements for improper use of classes
+# 5/18/14  TODO: Run profiling tools for different algorithms (e.g. the
+#                LinkedListStack vs the ArrayStack)
+# 5/18/14  TODO: Go through all the __main__ functions and modify them to
+#                print statements with more informations on what is happening
+# 5/18/14  TODO: Make an error class directory to have all user-defined errors
 # ------------------------------------------------------------------------------
-# 11/8/14 TODO: Add a bin folder to hold all c++ executables
+# 11/8/14  TODO: Add a bin folder to hold all c++ executables
+# ------------------------------------------------------------------------------
+# 11/16/14 TODO make this generic so you can specify whether you want a max or a min heap?

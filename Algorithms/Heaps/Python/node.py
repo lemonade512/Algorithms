@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # TODO can we use the node class in graphs?
-class Node(object):
+class TreeNode(object):
 
     def __init__(self, data):
         self.data = data

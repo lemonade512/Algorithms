@@ -1,12 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
-from node import Node
+from node import TreeNode
 import math
 
-#TODO make this generic so you can specify whether you want a max or a min heap?
-# NOTE Nodes should never be marked if they are root?
-
-class FibonacciHeapNode(Node):
+class FibonacciHeapNode(TreeNode):
     def __init__(self, key, data):
         super(FibonacciHeapNode, self).__init__(data)
         self.key = key
