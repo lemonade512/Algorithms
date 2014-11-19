@@ -7,7 +7,8 @@ import sys
 
 from Algorithms.Heaps.Python.fibonacci_heap import FibonacciHeap, FibonacciHeapNode
 
-SEED = -1
+#SEED = -1
+SEED = 4694115875039644586
 
 class TestFibonacciHeapNode(unittest.TestCase):
 
