@@ -108,9 +108,8 @@ class FibonacciHeap(object):
 
             self._cascading_cut(parent)
 
-        # Make sure to update min_idx if need be
-        if new_key < self.trees[self.min_idx].key:
-            self.min_idx = len(self.trees) - 1
+        # TODO is there a more efficient way to update min idx?
+        self._update_min_idx()
 
         assert(self._min_item_prop())
         assert(self._heap_property())
@@ -196,7 +195,7 @@ class FibonacciHeap(object):
     def _consolidate(self):
         # Link roots with the same degree until every root has different degree
         max_degree = int(math.ceil(math.log(self.count, 2)))
-        degree_array = [[] for i in range(max_degree)] # Initialize a big enough array
+        degree_array = [[] for i in range(max_degree+1)] # Initialize a big enough array
         for root in self.trees:
             degree = root.degree()
             degree_array[degree].append(root)
@@ -206,10 +205,7 @@ class FibonacciHeap(object):
             # m is the max number of trees of a certain degree. For instance,
             # if there are 3 trees of degree 2 and 2 trees of degree 1 then
             # m == 3
-            if len(degree_array) > 0:
-                m = max([len(x) for x in degree_array])
-            else:
-                m = 0
+            m = max([len(x) for x in degree_array])
 
             if m <= 1:
                 break
@@ -251,6 +247,10 @@ class FibonacciHeap(object):
         actual_min_key = self.trees[self.min_idx].key
 
         if expected_min_key != actual_min_key:
+            print expected_min_key
+            print actual_min_key
+            keys = [n.key for n in self.trees]
+            print keys
             return False
 
         return True
