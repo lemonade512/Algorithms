@@ -173,12 +173,11 @@ class Graph(object):
             finish: The key of the end node.
 
         Returns:
-            A list of keys making up the shortest path from
-            start to finish and the length of the path.
-            (path, length) If there are multiple least cost
-            paths then this algorithm returns one of them.
-            (You could modify to return a subset of the current
-            graph that contains all the least cost paths)
+            A list of keys making up the shortest path from start to finish and
+            the length of the path (path, length). If there are multiple least
+            cost paths then this algorithm returns one of them.  (You could modify
+            to return a subset of the current graph that contains all the least
+            cost paths). If there is no path this function returns None.
         """
         dist_dict = {}
         visited_dict = {}
@@ -210,4 +209,7 @@ class Graph(object):
             output.insert(0, end_node.key)
             end_node = previous[end_node]
         output.insert(0, start)
-        return output, dist_dict[self[finish]]
+        if dist_dict[self[finish]] != float('inf'):
+            return output, dist_dict[self[finish]]
+        else:
+            return None

@@ -4,7 +4,10 @@ from node import TreeNode
 import math
 
 class FibonacciHeapNode(TreeNode):
-    def __init__(self, key, data):
+    def __init__(self, key, data=None):
+        if data is None:
+            data = key
+
         super(FibonacciHeapNode, self).__init__(data)
         self.key = key
         self.marked = False
@@ -31,7 +34,7 @@ class FibonacciHeapNode(TreeNode):
 
         string = prefix + "Node: " + str(self.key)
         for c in self.children:
-            if c == self:
+            if c is self:
                 return "Recursive loop"
             string += c._to_string(prefix + "--->")
 
@@ -62,18 +65,22 @@ class FibonacciHeap(object):
             node = self.pop()
             yield node
 
-    def insert(self, key, val):
+    def insert(self, key, data=None):
         """ Creates a new node and inserts it into the heap.
 
         Args:
             key: A comparable value representing the priority of the
                  new node.
-            val: The value of the new node.
+            val: The value of the new node. If left blank the value is
+                 set to equal the key.
 
         Returns:
             The newly created node.
         """
-        new_node = FibonacciHeapNode(key, val)
+        if data is None:
+            data = key
+
+        new_node = FibonacciHeapNode(key, data)
         self.trees.append(new_node)
         self._update_min_idx()
 
@@ -247,10 +254,7 @@ class FibonacciHeap(object):
         actual_min_key = self.trees[self.min_idx].key
 
         if expected_min_key != actual_min_key:
-            print expected_min_key
-            print actual_min_key
             keys = [n.key for n in self.trees]
-            print keys
             return False
 
         return True

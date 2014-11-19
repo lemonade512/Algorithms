@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+#TODO Should this really be a value error?
+class RecursiveTreeError(ValueError):
+    pass
+
 class TreeNode(object):
 
     def __init__(self, data):
@@ -12,6 +16,8 @@ class TreeNode(object):
 
     def add_child(self, child):
         # TODO check to see if child already has parent?
+        if child is self:
+            raise RecursiveTreeError("A tree node cannot be a child of itself.")
         self.children.append(child)
         child.parent = self
 
@@ -33,10 +39,8 @@ class TreeNode(object):
 
         values = []
         for child in self.children:
-            if child == self:
-                #TODO add an error here
-                print "Recursive tree!"
-                exit()
+            if child is self:
+                raise RecursiveTreeError("A tree node cannot be a child of itself.")
             values.append(child.degree())
 
         return max(values) + 1
@@ -47,7 +51,7 @@ class TreeNode(object):
 
         string = prefix + "Node: " + str(self.data)
         for c in self.children:
-            if c == self:
+            if c is self:
                 return "Recursive loop"
             string += c._to_string(prefix + "--->")
 
