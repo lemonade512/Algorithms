@@ -37,7 +37,7 @@ class Graph(object):
         return len(self.nodes)
 
     def add_node(self, key, data=None):
-        """ Adds a node to the graph with a key and val.
+        """ Adds a node to the graph with a key and data.
 
         Args:
             key: The key to refer to the added node. This should be a
@@ -59,8 +59,10 @@ class Graph(object):
         self.nodes[new_node] = {}
 
     def add_edge(self, f_key, t_key, f_data=None, t_data=None, cost=0):
-        """ Adds a directed edge between the nodes with keys f_key and t_key
-            going from f_key to t_key.
+        """ Adds an edge between the nodes with keys f_key and t_key
+
+        If the graph is directed the new edge will be directed from f_key
+        to t_key. If the graph is not directed then the edge is not directed.
 
         Args:
             f_key: The key of the from node
@@ -179,37 +181,40 @@ class Graph(object):
             to return a subset of the current graph that contains all the least
             cost paths). If there is no path this function returns None.
         """
-        dist_dict = {}
-        visited_dict = {}
-        previous = {}
-        heap_nodes = {}
+        # attr_dict contains any information we need to store about nodes for the
+        # algorithm. Example: distance to the node
+        attr_dict = {}
         queue = FibonacciHeap()
         for node in self.nodes:
-            dist_dict[node] = float("inf")
-            heap_nodes[node] = queue.insert(float("inf"), node)
-            visited_dict[node] = False
-            previous[node] = None
-        dist_dict[self[start]] = 0
+            attr_dict[node] = dict()
+            attr_dict[node]['dist'] = float("inf")
+            attr_dict[node]['heap_node'] = queue.insert(float("inf"), node)
+            attr_dict[node]['visited'] = False
+            attr_dict[node]['previous'] = None
+
+        attr_dict[self[start]]['dist'] = 0
         queue.insert(0, self[start])
 
         while len(queue) > 0:
             node = queue.pop().data
-            visited_dict[node] = True
+            attr_dict[node]['visited'] = True
             for neighbor in self.nodes[node]:
-                if not visited_dict[neighbor]:
-                    alt = dist_dict[node] + self.nodes[node][neighbor]
-                    if alt < dist_dict[neighbor]:
-                        dist_dict[neighbor] = alt
-                        queue.decrease_key(heap_nodes[neighbor], alt)
-                        previous[neighbor] = node
+                if not attr_dict[neighbor]['visited']:
+                    alt = attr_dict[node]['dist'] + self.nodes[node][neighbor]
+                    if alt < attr_dict[neighbor]['dist']:
+                        attr_dict[neighbor]['dist'] = alt
+                        queue.decrease_key(attr_dict[neighbor]['heap_node'], alt)
+                        attr_dict[neighbor]['previous'] = node
 
+        # NOTE previous contains the shortest path from start to any
+        #      node in the graph
         output = []
         end_node = self[finish]
-        while previous[end_node] is not None:
+        while attr_dict[end_node]['previous'] is not None:
             output.insert(0, end_node.key)
-            end_node = previous[end_node]
+            end_node = attr_dict[end_node]['previous']
         output.insert(0, start)
-        if dist_dict[self[finish]] != float('inf'):
-            return output, dist_dict[self[finish]]
+        if attr_dict[self[finish]]['dist'] != float('inf'):
+            return output, attr_dict[self[finish]]['dist']
         else:
             return None
