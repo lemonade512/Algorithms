@@ -130,5 +130,34 @@ class TestGraph(unittest.TestCase):
         # Comes up as [a, b, c, d, z]
         output = g.dijkstra("a", "z")
         expected_output = (["a", "b", "c", "d", "z"], 10)
-        print output
+        self.assertEqual(output, expected_output)
+
+    def test_dijkstra2(self):
+        g = Graph()
+        g.add_edge(1, 2, cost=2)
+        g.add_edge(1, 3, cost=4)
+        g.add_edge(2, 3, cost=1)
+        g.add_edge(2, 5, cost=2)
+        g.add_edge(2, 4, cost=4)
+        g.add_edge(3, 5, cost=3)
+        g.add_edge(5, 4, cost=3)
+        g.add_edge(4, 6, cost=2)
+        g.add_edge(5, 6, cost=2)
+        output = g.dijkstra(1, 6)
+        expected_output = ([1, 2, 5, 6], 6)
+        self.assertEqual(output, expected_output)
+
+    def test_dijkstra_no_path(self):
+        g = Graph()
+        g.add_edge(1, 2, cost=2)
+        g.add_edge(1, 3, cost=4)
+        g.add_edge(2, 3, cost=1)
+        g.add_edge(2, 5, cost=2)
+        g.add_edge(2, 4, cost=4)
+        g.add_edge(3, 5, cost=3)
+        g.add_edge(5, 4, cost=3)
+        g.add_edge(4, 6, cost=2)
+        g.add_edge(5, 6, cost=2)
+        output = g.dijkstra(6, 1)
+        expected_output = None
         self.assertEqual(output, expected_output)
