@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import graph
-from graph import Node
 
 """
    3--7
@@ -13,35 +12,35 @@ from graph import Node
 
 if __name__ == "__main__":
     g = graph.Graph()
-    n1 = g.add_node(Node(1))
-    n2 = g.add_node(Node(2))
-    n3 = g.add_node(Node(3))
-    n4 = g.add_node(Node(4))
-    n5 = g.add_node(Node(5))
-    n6 = g.add_node(Node(6))
-    n7 = g.add_node(Node(7))
+    g.add_node(1)
+    g.add_node(2)
+    g.add_node(3)
+    g.add_node(4)
+    g.add_node(5)
+    g.add_node(6)
+    g.add_node(7)
 
     #TODO add an exception when the input is not
     # a node
-    g.add_edge(n1,n2)
-    g.add_edge(n2,n1)
-    g.add_edge(n2,n3)
-    g.add_edge(n3,n2)
-    g.add_edge(n2,n4)
-    g.add_edge(n4,n2)
-    g.add_edge(n4,n6)
-    g.add_edge(n6,n4)
-    g.add_edge(n4,n5)
-    g.add_edge(n5,n4)
-    g.add_edge(n7,n3)
-    g.add_edge(n3,n7)
+    g.add_edge(1,2)
+    g.add_edge(2,1)
+    g.add_edge(2,3)
+    g.add_edge(3,2)
+    g.add_edge(2,4)
+    g.add_edge(4,2)
+    g.add_edge(4,6)
+    g.add_edge(6,4)
+    g.add_edge(4,5)
+    g.add_edge(5,4)
+    g.add_edge(7,3)
+    g.add_edge(3,7)
 
-    for n in g.bfs(n2):
+    for n in g.bfs(2):
         print n
 
     print "\n"
 
-    for n in g.dfs(n2):
+    for n in g.dfs(2):
         print n
 
     print "\n"

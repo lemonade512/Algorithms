@@ -1,53 +1,23 @@
 #!/usr/bin/env python
 
-#TODO combine this with the node.py in Heaps?
+from Algorithms.Graphs.Python.graph_node import GraphNode
+from Algorithms.Heaps.Python.fibonacci_heap import FibonacciHeap
 
-class Node(object):
-    """
-    Each node keeps track of its neighbors in a dictionary with
-    the keys being the neighbor nodes and the values being the
-    weight of that connection.
-    """
+#NOTE cannot have a node connected to itself
 
-    def __init__(self, key, data=None):
-        self.key = key
-        if data is None:
-            self.data = key
-        else:
-            self.data = data
-        self.connections = dict()
-
-    def __str__(self):
-        return str(self.key) + " connected to: " +\
-                str([x.key for x in self.connections])
-    __repr__ = __str__
-
-    def __eq__(self, other):
-        if isinstance(other, Node):
-            return self.key == other.key
-        else:
-            return NotImplemented
-
-    def add_connection(self, neighbor, weight):
-        self.connections[neighbor] = weight
-
-#TODO should I just have everything expect a key? I could make it so that
-#     the user can get a node by refering to it's key but otherwise nothing
-#     will take a node as input.
-#TODO could be improved by having a DirectedGraph object?
 class Graph(object):
 
-    def __init__(self):
+    def __init__(self, directed=True):
         self.nodes = dict()
+        self.directed = directed
 
-    def __getitem__(self, item):
-        """ Allows access like a dictionary """
+    def __getitem__(self, key):
+        """ Allows access like a dictionary using the node's key """
         for node in self.nodes:
             if node.key == key:
                 return node
 
-        #TODO should this raise a key error?
-        return None
+        raise KeyError("Could not find node with key '{0}'".format(key))
 
     def __contains__(self, key):
         """ Checks to see if the graph contains a node with key.
@@ -59,11 +29,14 @@ class Graph(object):
             True if the key is in the graph.
         """
         for node in self.nodes:
-            if node.key == n:
+            if node.key == key:
                 return True
         return False
 
-    def add_node(self, key, val=None):
+    def __len__(self):
+        return len(self.nodes)
+
+    def add_node(self, key, data=None):
         """ Adds a node to the graph with a key and val.
 
         Args:
@@ -72,29 +45,45 @@ class Graph(object):
                  the val keyword. If val is not input then the data of
                  the node will be the same as the key.
 
-            val: The data of the newly added node. If this is left blank
+            data: The data of the newly added node. If this is left blank
                  then the data of the newly created node will be the same
                  as the key.
 
         Raises:
             ValueError if a node with key is already in the graph.
         """
-        new_node = Node(key, data=val)
+        if key in self:
+            raise KeyError("Duplicate key '{0}' found.".format(key))
 
-        if new_node not in self.nodes:
-            self.nodes[new_node] = {}
-        else:
-            raise ValueError("Duplicate key '{0}' found.".format(key))
+        new_node = GraphNode(key, data=data)
+        self.nodes[new_node] = {}
 
-    def add_edge(self, f_key, t_key, f_val=None, t_val=None, cost=0):
-        """
+    def add_edge(self, f_key, t_key, f_data=None, t_data=None, cost=0):
+        """ Adds a directed edge between the nodes with keys f_key and t_key
+            going from f_key to t_key.
+
+        Args:
+            f_key: The key of the from node
+            t_key: The key of the to node
+
+        KWargs:
+            f_val: The data of the node with key 'f_key'. This defaults to whatever
+                   the node's key is.
+            t_val: The data of the node with key 't_key'. This defaults to whatever
+                   the nod'es key is.
+            cost: The cost of the the edge connecting the two nodes
         """
         if f_key not in self:
-            self.add_node(f_key, data=f_val)
+            self.add_node(f_key, data=f_data)
         if t_key not in self:
-            self.add_node(t_key, data=t_val)
-        self.nodes[n1][n2] = cost
-        from_node.add_connection(t, 0)
+            self.add_node(t_key, data=t_data)
+        f_node, t_node = self[f_key], self[t_key]
+        self.nodes[f_node][t_node] = cost
+        f_node.add_connection(t_node, cost)
+
+        if not self.directed:
+            self.nodes[t_node][f_node] = cost
+            t_node.add_connection(f_node, cost)
 
     def is_connected(self):
         #TODO a breadth first search will only work for undirected graphs
@@ -107,7 +96,7 @@ class Graph(object):
         start = self.nodes.keys()[0]
 
         visited = []
-        for n in self.bfs(start):
+        for n in self.bfs(start.key):
             visited.append(n)
 
         return len(visited) == len(self.nodes)
@@ -140,10 +129,6 @@ class Graph(object):
         # Find the node with start as the key
         start = self[start]
 
-        if start not in self:
-            # This is bad data
-            raise ValueError("Could not find node: " + str(start))
-
         visited = []
         queue = [start]
         while queue:
@@ -169,9 +154,6 @@ class Graph(object):
         # Find the node based on the given key
         start = self[start]
 
-        if start not in self:
-            raise ValueError("Could not find node: " + str(start))
-
         visited = []
         queue = [start]
         while queue:
@@ -181,3 +163,51 @@ class Graph(object):
             for n in self.nodes[current_node]:
                 if n not in visited:
                     queue.append(n)
+
+    def dijkstra(self, start, finish):
+        """ Finds the shortest path from start to finish.
+
+        Args:
+            start: The key of the starting node.
+
+            finish: The key of the end node.
+
+        Returns:
+            A list of keys making up the shortest path from
+            start to finish and the length of the path.
+            (path, length) If there are multiple least cost
+            paths then this algorithm returns one of them.
+            (You could modify to return a subset of the current
+            graph that contains all the least cost paths)
+        """
+        dist_dict = {}
+        visited_dict = {}
+        previous = {}
+        heap_nodes = {}
+        queue = FibonacciHeap()
+        for node in self.nodes:
+            dist_dict[node] = float("inf")
+            heap_nodes[node] = queue.insert(float("inf"), node)
+            visited_dict[node] = False
+            previous[node] = None
+        dist_dict[self[start]] = 0
+        queue.insert(0, self[start])
+
+        while len(queue) > 0:
+            node = queue.pop().data
+            visited_dict[node] = True
+            for neighbor in self.nodes[node]:
+                if not visited_dict[neighbor]:
+                    alt = dist_dict[node] + self.nodes[node][neighbor]
+                    if alt < dist_dict[neighbor]:
+                        dist_dict[neighbor] = alt
+                        queue.decrease_key(heap_nodes[neighbor], alt)
+                        previous[neighbor] = node
+
+        output = []
+        end_node = self[finish]
+        while previous[end_node] is not None:
+            output.insert(0, end_node.key)
+            end_node = previous[end_node]
+        output.insert(0, start)
+        return output, dist_dict[self[finish]]
