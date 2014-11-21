@@ -2,6 +2,8 @@
 
 from math import floor
 
+from Algorithms.Heaps.Python.node import HeapNode
+
 class BinaryHeap(object):
 
     def __init__(self):
@@ -10,11 +12,21 @@ class BinaryHeap(object):
     def __str__(self):
         return str(self.nodes)
 
-    def insert(self, val):
+    def insert(self, key, data=None):
+        """ Inserts a node into the heap.
+
+        Args:
+            key: The key of the node to insert. This determines in what
+                 order the nodes will be popped.
+
+            data: The value of the node to insert into the heap. If left
+                  blank the data will be equal to the key.
+        """
         assert(self._heap_property())
-        print "\nInserting:", val
+        new_node = HeapNode(key, data)
+        print "\nInserting:", new_node
         idx = len(self.nodes)
-        self.nodes.append(val)
+        self.nodes.append(new_node)
         print self
 
         parent = self._parent_idx(idx)
@@ -27,6 +39,11 @@ class BinaryHeap(object):
         assert(self._heap_property())
 
     def pop(self):
+        """ Pops the minimum node off the heap.
+
+        Returns:
+            The minimum node in the heap.
+        """
         # TODO test this by making a large random list, heapifying it, popping everything off,
         #      and making sure the sorted random list and popped list are the same
         assert(self._heap_property())

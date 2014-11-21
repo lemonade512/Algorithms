@@ -5,32 +5,33 @@ import unittest
 import random
 import sys
 
-from Algorithms.Heaps.Python.fibonacci_heap import FibonacciHeap, FibonacciHeapNode
+from Algorithms.Heaps.Python.fibonacci_heap import FibonacciHeap
+from Algorithms.Heaps.Python.node import HeapNode
 
 SEED = 4694115875039644586
 
 
-class TestFibonacciHeapNode(unittest.TestCase):
+class TestHeapNode(unittest.TestCase):
 
     def test_node_mark(self):
-        node = FibonacciHeapNode(10, 10)
+        node = HeapNode(10, 10)
         node.mark()
         self.assertTrue(node.marked)
 
     def test_invalid_heap(self):
-        node = FibonacciHeapNode(1, 1)
-        node2 = FibonacciHeapNode(3, 3)
+        node = HeapNode(1, 1)
+        node2 = HeapNode(3, 3)
         node.add_child(node2)
-        node2.add_child(FibonacciHeapNode(0, 0))
+        node2.add_child(HeapNode(0, 0))
         self.assertFalse(node.valid_heap())
 
     def test_to_string(self):
-        node1 = FibonacciHeapNode(1, 1)
+        node1 = HeapNode(1, 1)
         self.assertEqual(node1._to_string(), "\nNode: 1")
 
     def test_to_string_connected(self):
-        root = FibonacciHeapNode(1)
-        n2 = FibonacciHeapNode(2)
+        root = HeapNode(1)
+        n2 = HeapNode(2)
         root.add_child(n2)
         string = root._to_string()
         self.assertEqual("\nNode: 1\n--->Node: 2", string)
@@ -173,8 +174,8 @@ class TestFibonacciHeap(unittest.TestCase):
     def test_peek(self):
         fib_heap = FibonacciHeap()
         fib_heap.insert(10, 10)
-        fib_heap.insert(1, 15)
-        self.assertEqual(fib_heap.peek(), 15)
+        n = fib_heap.insert(1, 15)
+        self.assertEqual(fib_heap.peek(), n)
 
     def test_fib_heap_str(self):
         fib_heap = FibonacciHeap()
@@ -185,14 +186,14 @@ class TestFibonacciHeap(unittest.TestCase):
 
     def test_invalid_min_item_returns_false(self):
         fib_heap = FibonacciHeap()
-        fib_heap.trees.append(FibonacciHeapNode(10))
-        fib_heap.trees.append(FibonacciHeapNode(1))
+        fib_heap.trees.append(HeapNode(10))
+        fib_heap.trees.append(HeapNode(1))
         fib_heap.min_idx = 0
         self.assertFalse(fib_heap._min_item_prop())
 
     def test_marked_heap_root_is_invalid(self):
         fib_heap = FibonacciHeap()
-        node = FibonacciHeapNode(1)
+        node = HeapNode(1)
         node.mark()
         fib_heap.trees.append(node)
         self.assertFalse(fib_heap._heap_property())

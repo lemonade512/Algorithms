@@ -15,18 +15,24 @@ class TreeNode(object):
         return self._to_string()
 
     def add_child(self, child):
-        # TODO check to see if child already has parent?
+        """ Adds a child to the node's children.
+
+        Args:
+            child: The child to add to the nodes children.
+        """
         if child is self:
             raise RecursiveTreeError("A tree node cannot be a child of itself.")
+
         self.children.append(child)
         child.parent = self
 
     def cut(self, child):
+        #TODO test this cuts proper child
         """
         Cuts child from the nodes children
         """
         for i, c in enumerate(self.children):
-            if c == child:
+            if c is child:
                 del self.children[i]
                 child.parent = None
                 return child
@@ -50,6 +56,44 @@ class TreeNode(object):
             prefix = "\n" + prefix
 
         string = prefix + "Node: " + str(self.data)
+        for c in self.children:
+            if c is self:
+                return "Recursive loop"
+            string += c._to_string(prefix + "--->")
+
+        return string
+
+class HeapNode(TreeNode):
+    #TODO make this a HeapNode and use it in binary heap
+    def __init__(self, key, data=None):
+        if data is None:
+            data = key
+
+        super(HeapNode, self).__init__(data)
+        self.key = key
+        self.marked = False
+
+    def mark(self):
+        self.marked = True
+
+    def valid_heap(self):
+        if len(self.children) == 0:
+            return True
+
+        for child in self.children:
+            if child.key < self.key:
+                return False
+
+            if not child.valid_heap():
+                return False
+
+        return True
+
+    def _to_string(self, prefix=""):
+        if "\n" not in prefix:
+            prefix = "\n" + prefix
+
+        string = prefix + "Node: " + str(self.key)
         for c in self.children:
             if c is self:
                 return "Recursive loop"

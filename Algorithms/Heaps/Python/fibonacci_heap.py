@@ -1,44 +1,8 @@
 #!/usr/bin/env python
 
-from node import TreeNode
 import math
 
-class FibonacciHeapNode(TreeNode):
-    def __init__(self, key, data=None):
-        if data is None:
-            data = key
-
-        super(FibonacciHeapNode, self).__init__(data)
-        self.key = key
-        self.marked = False
-
-    def mark(self):
-        self.marked = True
-
-    def valid_heap(self):
-        if len(self.children) == 0:
-            return True
-
-        for child in self.children:
-            if child.key < self.key:
-                return False
-
-            if not child.valid_heap():
-                return False
-
-        return True
-
-    def _to_string(self, prefix=""):
-        if "\n" not in prefix:
-            prefix = "\n" + prefix
-
-        string = prefix + "Node: " + str(self.key)
-        for c in self.children:
-            if c is self:
-                return "Recursive loop"
-            string += c._to_string(prefix + "--->")
-
-        return string
+from Algorithms.Heaps.Python.node import HeapNode
 
 class FibonacciHeap(object):
     """
@@ -71,8 +35,8 @@ class FibonacciHeap(object):
         Args:
             key: A comparable value representing the priority of the
                  new node.
-            val: The value of the new node. If left blank the value is
-                 set to equal the key.
+            data: The data of the new node. If left blank the data is
+                  set to equal the key.
 
         Returns:
             The newly created node.
@@ -80,11 +44,10 @@ class FibonacciHeap(object):
         if data is None:
             data = key
 
-        new_node = FibonacciHeapNode(key, data)
+        new_node = HeapNode(key, data)
         self.trees.append(new_node)
         self._update_min_idx()
 
-        # Update node count
         self.count += 1
         assert(self._min_item_prop())
         return new_node
@@ -93,7 +56,7 @@ class FibonacciHeap(object):
         """ Decreases the key of the specified node.
 
         Args:
-            node (FibonacciHeapNode): The node to decrease the key of.
+            node (HeapNode): The node to decrease the key of.
 
             new_key: The new key of the node. This must be less than the current
                      key of the node and comparable to other keys used in the heap.
@@ -115,7 +78,6 @@ class FibonacciHeap(object):
 
             self._cascading_cut(parent)
 
-        # TODO is there a more efficient way to update min idx?
         self._update_min_idx()
 
         assert(self._min_item_prop())
@@ -125,7 +87,7 @@ class FibonacciHeap(object):
         """ Deletes the node from the heap.
 
         Args:
-            node (FibonacciHeapNode): What node to delete.
+            node (HeapNode): What node to delete.
 
         Returns:
             The deleted node.
@@ -149,8 +111,8 @@ class FibonacciHeap(object):
         return heap
 
     def peek(self):
-        """ Returns the data of the top node in the heap. """
-        return self.trees[self.min_idx].data
+        """ Returns the top node in the heap. """
+        return self.trees[self.min_idx]
 
     def pop(self):
         """ Takes the top node off the heap and consolidates.

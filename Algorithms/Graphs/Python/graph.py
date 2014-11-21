@@ -189,13 +189,17 @@ class Graph(object):
             attr_dict[node] = dict()
             attr_dict[node]['dist'] = float("inf")
             attr_dict[node]['heap_node'] = queue.insert(float("inf"), node)
+            print "djikstra: adding to queue", len(queue)
             attr_dict[node]['visited'] = False
             attr_dict[node]['previous'] = None
 
         attr_dict[self[start]]['dist'] = 0
         queue.insert(0, self[start])
+        print queue
 
         while len(queue) > 0:
+            print len(queue)
+            print queue
             node = queue.pop().data
             attr_dict[node]['visited'] = True
             for neighbor in self.nodes[node]:
