@@ -144,6 +144,24 @@ class LinkedList:
         else:
             print "Could not delete cell"
 
+    def insertion_sort(self):
+        sorted_list = LinkedList()
+        input = self.top.next_
+
+        while input != None:
+            next_cell = Cell(input.value)
+
+            # increment input
+            input = input.next_
+
+            after_me = sorted_list.top
+            while after_me.next_ != None and after_me.next_.value < next_cell.value:
+                after_me = after_me.next_
+
+            sorted_list.insert(after_me, next_cell)
+
+        return sorted_list
+
 if __name__ == "__main__":
     list1 = LinkedList()
     list1.append(1)
@@ -158,3 +176,14 @@ if __name__ == "__main__":
     list2.append(4)
     print list1
     print list2
+
+    list1 = LinkedList()
+    list1.append(1)
+    list1.append(12)
+    list1.append(10)
+    list1.append(5)
+    list1.append(17)
+    list1.append(5)
+    print "Unsorted List: ", list1
+    list2 = list1.insertion_sort()
+    print "Sorted List: ", list2
