@@ -16,6 +16,12 @@ class Array(object):
     def __str__(self):
         return str(self.arr)
 
+    def insert(self, idx, val):
+        self.arr.insert(idx, val)
+
+    def remove(self, idx):
+        del self.arr[idx]
+
     def index_of(self, target):
         for i in range(len(self.arr)):
             if self.arr[i] == target:
