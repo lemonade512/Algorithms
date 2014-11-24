@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 def index_of(array, target):
     for i in range(len(array)):

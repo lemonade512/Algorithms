@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 def Insert(array, value, position):
     array.insert(position, value)

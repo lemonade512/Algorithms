@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 def initialize_array(bounds):
     NumDimensions = len(bounds) / 2

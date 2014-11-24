@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 def initialize_array(rows):
     array = [0 for x in range(((rows**2)+rows)/2)]
