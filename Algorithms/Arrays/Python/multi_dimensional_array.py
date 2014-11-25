@@ -17,7 +17,7 @@ def initialize_array(bounds):
     Values = [0 for x in range(slice_size)]
     return (Values, LowerBound, SliceSize)
 
-def mat_indices_to_index(indices, LowerBound, SliceSize):
+def map_indices_to_index(indices, LowerBound, SliceSize):
     index = 0
     for i in range(len(indices)):
         index += (indices[i] - LowerBound[i]) * SliceSize[i]
