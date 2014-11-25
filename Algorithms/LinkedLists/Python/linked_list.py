@@ -146,13 +146,13 @@ class LinkedList:
 
     def insertion_sort(self):
         sorted_list = LinkedList()
-        input = self.top.next_
+        input_ = self.top.next_
 
-        while input != None:
-            next_cell = Cell(input.value)
+        while input_ != None:
+            next_cell = Cell(input_.value)
 
-            # increment input
-            input = input.next_
+            # increment input_
+            input_ = input_.next_
 
             after_me = sorted_list.top
             while after_me.next_ != None and after_me.next_.value < next_cell.value:
@@ -160,6 +160,28 @@ class LinkedList:
 
             sorted_list.insert(after_me, next_cell)
 
+        return sorted_list
+
+    def selection_sort(self):
+        sorted_list = LinkedList()
+
+        new_list = self.copy()
+        input_ = new_list.top
+        while input_.next_ != None:
+            best_after_me = input_
+            best_value = best_after_me.next_.value
+
+            after_me = input_.next_
+            while after_me.next_ != None:
+                if after_me.next_.value > best_value:
+                    best_after_me = after_me
+                    best_value = after_me.next_.value
+                after_me = after_me.next_
+
+            best_cell = best_after_me.next_
+            best_after_me.next_ = best_cell.next_
+
+            sorted_list.prepend(best_cell)
         return sorted_list
 
 if __name__ == "__main__":
@@ -177,6 +199,7 @@ if __name__ == "__main__":
     print list1
     print list2
 
+    print "\nInsertion sort"
     list1 = LinkedList()
     list1.append(1)
     list1.append(12)
@@ -186,4 +209,16 @@ if __name__ == "__main__":
     list1.append(5)
     print "Unsorted List: ", list1
     list2 = list1.insertion_sort()
+    print "Sorted List: ", list2
+
+    print "\nSelection sort"
+    list1 = LinkedList()
+    list1.append(3)
+    list1.append(14)
+    list1.append(7)
+    list1.append(9)
+    list1.append(12)
+    list1.append(1)
+    print "Unsorted List: ", list1
+    list2 = list1.selection_sort()
     print "Sorted List: ", list2
