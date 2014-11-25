@@ -1,30 +1,28 @@
 #!/usr/bin/python
-'''
-Date Created: Unknown
-Author: Phillip Lemons
-Modified on: 5/18/14
-'''
-
-class Cell:
-
-    def __init__(self, value):
-        self.value = value
-        self.next_ = None
-        self.visited = False
-
-    def __str__(self):
-        return str(self.value)
-
-    def __repr__(self):
-        return repr(self.value)
 
 class LinkedList:
 
+    class Cell:
+        """ Class used to store data and links in a linked list. """
+
+        def __init__(self, value):
+            self.value = value
+            self.next_ = None
+            self.visited = False
+
+        def __str__(self):
+            return str(self.value)
+
+        def __repr__(self):
+            return repr(self.value)
+
     def __init__(self):
-        self.top = Cell(None)
+        """ Initializes a linked list with a sentinel cell. """
+        self.top = self.Cell(None)
         self.bottom = self.top
 
     def __len__(self):
+        """ Calculates the length of the linked list. """
         top = self.top
         length = 0
         while top.next_ != None:
@@ -33,6 +31,7 @@ class LinkedList:
         return length
 
     def __repr__(self):
+        """ Returns a string representing the linked list. """
         top = self.top
         if top.next_ != None:
             top = top.next_
@@ -46,12 +45,14 @@ class LinkedList:
         return string
 
     def __iter__(self):
+        """ Iterates through each value of the linked list. Returns a generator. """
         top = self.top
         while top != None:
-            yield top
+            yield top.value
             top = top.next_
 
     def copy(self):
+        """ Returns a copy of the linked list. """
         new_list = LinkedList()
         old_cell = self.top.next_
 
@@ -62,9 +63,21 @@ class LinkedList:
         return new_list
 
     def get_bottom(self):
-        return self.bottom
+        """ Returns the bottom value. """
+        return self.bottom.value
 
-    def find_cell(self, target):
+    def find(self, target):
+        """ Searches for the cell with the given value.
+
+        If there are duplicates in the list this returns the first cell
+        with the target value.
+
+        Args:
+            target: value to search for
+
+        Returns:
+            The cell with the target value.
+        """
         top = self.top
         while top != None:
             if top.value == target:
@@ -74,6 +87,14 @@ class LinkedList:
         return None
 
     def find_cell_before(self, target):
+        """ Searches for the cell before the given value.
+
+        Args:
+            target: value to search for
+
+        Returns:
+            The cell preceding the cell with the target value.
+        """
         top = self.top
         while top.next_ != None:
             if top.next_.value == target:
@@ -83,7 +104,12 @@ class LinkedList:
         return None
 
     def prepend(self, new_value):
-        new_cell = Cell(new_value)
+        """ Adds a new cell to the beginning of the list.
+
+        Args:
+            new_value: The value to add at the beginning.
+        """
+        new_cell = self.Cell(new_value)
 
         if self.top == self.bottom:
             self.bottom = new_cell
@@ -91,7 +117,12 @@ class LinkedList:
         self.top.next_ = new_cell
 
     def append(self, new_value):
-        new_cell = Cell(new_value)
+        """ Adds a new cell to the end of the list.
+
+        Args:
+            new_value: The value to add to the list.
+        """
+        new_cell = self.Cell(new_value)
 
         top = self.top
         while top.next_ != None:
@@ -101,21 +132,33 @@ class LinkedList:
         new_cell.next_ = None
         self.bottom = new_cell
 
-    # This currently will not work if there are duplicates of the value
-    # passed into <after_me>. Perhaps this actually is better using cells
-    # instead of passing values?
     def insert(self, after_me, new_cell):
-        #after_me_cell = self.find_cell(after_me)
-        #new_cell = Cell(new_value)
+        """ Inserts new_cell after after_me.
+
+        If the list is sorted and has duplicates the new_cell will be inserted
+        after the last cell with the same value as after_me.
+
+        Args:
+        after_me (Cell): The cell to insert after
+        new_cell (Cell): The new cell to insert
+        """
+        while after_me.next_.value == after_me.value:
+            after_me = after_me.next_
 
         if after_me.next_ == None:
             self.bottom = new_cell
         new_cell.next_ = after_me.next_
         after_me.next_ = new_cell
 
-    # Inserts new_cell into a sorted linked list
     def insert_sorted(self, new_value):
-        new_cell = Cell(new_value)
+        """ Inserts a new cell into a sorted list.
+
+        This allows you to keep a linked list sorted.
+
+        Args:
+            new_value: The value to insert.
+        """
+        new_cell = self.Cell(new_value)
 
         top = self.top
         while top.next_ != None and top.next_.value < new_cell.value:
@@ -127,6 +170,7 @@ class LinkedList:
         top.next_ = new_cell
 
     def delete(self, target):
+        """ Deletes the target cell from the list. """
         top = self.top
         while (top.next_ != target):
             if top.next_ == None:
@@ -134,9 +178,14 @@ class LinkedList:
                 return
             top = top.next_
 
-        self.DeleteAfter(top)
+        self.delete_after(top)
 
     def delete_after(self, after_me):
+        """ Deletes the cell after the target cell in the list.
+
+        Args:
+            after_me (Cell): The cell to delete after
+        """
         if after_me.next_.next_ == None:
             self.bottom = after_me
         if after_me.next_ != None:
@@ -145,11 +194,12 @@ class LinkedList:
             print "Could not delete cell"
 
     def insertion_sort(self):
+        """ Returns a sorted list. """
         sorted_list = LinkedList()
         input_ = self.top.next_
 
         while input_ != None:
-            next_cell = Cell(input_.value)
+            next_cell = self.Cell(input_.value)
 
             # increment input_
             input_ = input_.next_
@@ -163,6 +213,7 @@ class LinkedList:
         return sorted_list
 
     def selection_sort(self):
+        """ Returns a sorted list. """
         sorted_list = LinkedList()
 
         new_list = self.copy()
