@@ -63,7 +63,7 @@ class FibonacciHeap(object):
         """
         assert(self._heap_property())
 
-        # Decrease the key
+        # If the new key is greater than the node's key, ignore and return
         if node.key < new_key:
             return
 
@@ -127,10 +127,8 @@ class FibonacciHeap(object):
         children = self.trees[self.min_idx].children
         while len(children) > 0:
             child = children.pop()
-            child_data = child.data
             self.trees[self.min_idx].cut(child)
             self.trees.append(child)
-            assert(child.data == child_data)
 
         del self.trees[self.min_idx]
 
@@ -155,6 +153,9 @@ class FibonacciHeap(object):
                 self._cascading_cut(parent)
 
     def _update_min_idx(self):
+        """ Iterates through all the roots and updates the min_idx with
+        the index of the root with the smallest key.
+        """
         min_idx = 0
         for i, _ in enumerate(self.trees):
             if self.trees[i].key < self.trees[min_idx].key:
@@ -162,6 +163,12 @@ class FibonacciHeap(object):
         self.min_idx = min_idx
 
     def _consolidate(self):
+        """ Consolidates the nodes of the heap into trees.
+
+        Only one tree of a particular degree is allowed. For instance,
+        you can have a tree of degree 2 and a tree of degree 3 but not
+        two trees of degree 2.
+        """
         # Link roots with the same degree until every root has different degree
         max_degree = int(math.ceil(math.log(self.count, 2)))
         degree_array = [[] for i in range(max_degree+1)] # Initialize a big enough array
@@ -181,6 +188,7 @@ class FibonacciHeap(object):
 
             for tree_list in degree_array:
                 if len(tree_list) > 1:
+                    # Consolidate 2 trees of degree k to 1 tree of degree k+1
                     t1 = tree_list[0]
                     t2 = tree_list[1]
 
@@ -192,6 +200,7 @@ class FibonacciHeap(object):
                         min_t = t1
                         t1.add_child(t2)
 
+                    # Delete the consolidated trees from their original location
                     del tree_list[0]
                     del tree_list[0]
 
