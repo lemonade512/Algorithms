@@ -5,6 +5,7 @@ DEFAULT = 0
 class SparseArray(object):
 
     class ArrayRow(object):
+        """ Class representing a row of values. """
 
         def __init__(self):
             self.row_number = -1
@@ -26,6 +27,7 @@ class SparseArray(object):
             return result
 
     class ArrayEntry(object):
+        """ Class representing a singular entry in a row. """
 
         def __init__(self, value = None):
             self.column_number = -1
@@ -59,18 +61,7 @@ class SparseArray(object):
 
         return array_row
 
-    def find_column_before(self, row, column):
-        array_entry = row.row_sentinel
-        if array_entry == None:
-            return None
-
-        while (array_entry.next_entry != None and
-               array_entry.next_entry.column_number < column):
-            array_entry = array_entry.next_entry
-
-        return array_entry
-
-    def get_value(self, row, col):
+    def get(self, row, col):
         assert row >= 0
         assert col >= 0
 
@@ -89,7 +80,7 @@ class SparseArray(object):
             return DEFAULT
         return array_entry.value
 
-    def set_value(self, row, col, value):
+    def set(self, row, col, value):
         assert row >= 0
         assert col >= 0
 
@@ -143,55 +134,6 @@ class SparseArray(object):
 
         array_row.next_row = array_row.next_row.next_row
 
-    @staticmethod
-    def make_test_array():
-        row_sentinel = ArrayRow()
-        r0 = ArrayRow()
-        r1 = ArrayRow()
-        r2 = ArrayRow()
-        r0c0 = SparseArray.ArrayEntry()
-        r0c1 = SparseArray.ArrayEntry()
-        r1c0 = SparseArray.ArrayEntry()
-        r1c1 = SparseArray.ArrayEntry()
-        r1c2 = SparseArray.ArrayEntry()
-        r2c0 = SparseArray.ArrayEntry()
-
-        row_sentinel.next_row = r0
-
-        r0.row_number = 0
-        r0.next_row = r1
-        r0_sentinel = SparseArray.ArrayEntry()
-        r0_sentinel.next_entry = r0c0
-        r0.row_sentinel = r0_sentinel
-        r0c0.column_number = 4
-        r0c0.value = 5
-        r0c0.next_entry = r0c1
-        r0c1.column_number = 7
-        r0c1.value = 3
-
-        r1.row_number = 3
-        r1.next_row = r2
-        r1_sentinel = SparseArray.ArrayEntry()
-        r1_sentinel.next_entry = r1c0
-        r1.row_sentinel = r1_sentinel
-        r1c0.column_number = 0
-        r1c0.value = 1
-        r1c0.next_entry = r1c1
-        r1c1.column_number = 1
-        r1c1.value = 6
-        r1c1.next_entry = r1c2
-        r1c2.column_number = 4
-        r1c2.value = 5
-
-        r2.row_number = 4
-        r2_sentinel = SparseArray.ArrayEntry()
-        r2_sentinel.next_entry = r2c0
-        r2.row_sentinel = r2_sentinel
-        r2c0.column_number = 0
-        r2c0.value = 15
-
-        return row_sentinel
-
 if __name__ == "__main__":
     sparse_array = SparseArray()
     sparse_array.set_value(0, 1, 10)
@@ -199,40 +141,3 @@ if __name__ == "__main__":
     sparse_array.set_value(3, 5, 4)
     sparse_array.set_value(3, 2, 0)
     print sparse_array
-    #test_array_sentinel = make_test_array()
-    #print "Test Array"
-    #print "-----------------------------------------"
-    #print_sparse_array(test_array_sentinel)
-    #print "-----------------------------------------"
-    #print "\nFind Before methods"
-    #print "-----------------------------------------"
-    #print "Row before 2: " + str(find_row_before(2, test_array_sentinel))
-    #print "Row before 4: " + str(find_row_before(4, test_array_sentinel))
-    #row = find_row_before(1, test_array_sentinel)
-    #print "Column before 7 in Row #0: " + \
-    #       str(find_column_before(7, row.row_sentinel))
-    #print "-----------------------------------------"
-    #print "\nGet and Set methods"
-    #print "-----------------------------------------"
-    #print "Get (0,4): " + str(get_value(0,4, test_array_sentinel))
-    #print "Get (0,5): " + str(get_value(0,5, test_array_sentinel))
-    #print "Get (3,1): " + str(get_value(3,1, test_array_sentinel))
-    #print "Setting (0,8) to 5"
-    #set_value(0,8, 5, test_array_sentinel)
-    #print "Get (0,8): " + str(get_value(0,8, test_array_sentinel))
-    #print "Setting (0,5) to 3"
-    #set_value(0,5, 3, test_array_sentinel)
-    #print "Get (0,5): " + str(get_value(0,5, test_array_sentinel))
-    #print "Setting (3,1) to 4"
-    #set_value(3,1, 4, test_array_sentinel)
-    #print "Get (3,1): " + str(get_value(3,1, test_array_sentinel))
-    #print "-----------------------------------------"
-    #print "\nDelete Method"
-    #print "-----------------------------------------"
-    #print "Deleting (0,5)"
-    #delete_entry(0,5, test_array_sentinel)
-    #print "Deleting (4,0)"
-    #delete_entry(4,0, test_array_sentinel)
-    #print "Setting (0,5) to 0"
-    #set_value(0,5, 0, test_array_sentinel)
-    #print_sparse_array(test_array_sentinel)
