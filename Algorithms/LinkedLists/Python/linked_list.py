@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 class LinkedList:
 
@@ -23,7 +23,6 @@ class LinkedList:
                 return NotImplemented
 
         def __ne__(self, other):
-            print "Not equal"
             return not self.__eq__(other)
 
     def __init__(self):
