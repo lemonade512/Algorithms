@@ -148,4 +148,50 @@ class TestLinkedList(unittest.TestCase):
 
         self.assertEqual(idx, 3)
 
+    def test_list_repr(self):
+        l = LinkedList()
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        actual = repr(l)
+
+        expected = "1 --> 2 --> 3"
+        self.assertEqual(actual, expected)
+
+    def test_cell_repr(self):
+        c = LinkedList.Cell(1)
+        actual = repr(c)
+        expected = "1"
+        self.assertEqual(actual, expected)
+
+    def test_cell_not_equal(self):
+        c1 = LinkedList.Cell(1)
+        c2 = LinkedList.Cell(4)
+        self.assertTrue(c1 != c2)
+
+    def test_index_returns_negative_one(self):
+        l = LinkedList()
+        idx = l.index(4)
+        self.assertEqual(idx, -1)
+
+    def test_prepend_cell(self):
+        l = LinkedList()
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        c1 = LinkedList.Cell(4)
+        l.prepend(c1)
+
+        expected = [4, 1, 2, 3]
+        actual = [e for e in l]
+
+        self.assertEqual(actual, expected)
+
+    def test_delete_not_in_list(self):
+        l = LinkedList()
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        self.assertIsNone(l.delete(5))
+
 

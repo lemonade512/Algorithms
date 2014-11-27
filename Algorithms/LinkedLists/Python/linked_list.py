@@ -54,7 +54,6 @@ class LinkedList:
         while top is not None:
             string += ' --> ' + str(top.value)
             top = top.next_
-        string += '\nBottom: ' + str(self.bottom.value)
         return string
 
     def __iter__(self):
@@ -198,10 +197,10 @@ class LinkedList:
         before = self.top
         # Find the cell before the one we want to delete
         while (before.next_.value != target):
+            before = before.next_
             if before.next_ == None:
                 print str(target) + " is not in list"
                 return
-            before = before.next_
 
         if before.next_.next_ is None:
             self.bottom = before
