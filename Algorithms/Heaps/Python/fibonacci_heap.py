@@ -27,7 +27,23 @@ class FibonacciHeap(object):
         """ Iterates through all nodes by popping them. """
         while len(self.trees) > 0:
             node = self.pop()
-            yield node
+            yield node.data
+
+    @staticmethod
+    def heapify(arr):
+        """ Turns an iterable data structure into a heap.
+
+        Args:
+            arr: The list/array/etc that you want to create a heap with.
+
+        Returns:
+            A heap with the elements from the list/array/etc.
+        """
+        heap = FibonacciHeap()
+        for element in arr:
+            heap.insert(element)
+
+        return heap
 
     def insert(self, key, data=None):
         """ Creates a new node and inserts it into the heap.

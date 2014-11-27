@@ -198,5 +198,21 @@ class TestFibonacciHeap(unittest.TestCase):
         fib_heap.trees.append(node)
         self.assertFalse(fib_heap._heap_property())
 
+    def test_heap_iterates_values(self):
+        fib_heap = FibonacciHeap()
+        fib_heap.insert(1)
+        fib_heap.insert(9)
+        fib_heap.insert(3)
+        fib_heap.insert(2)
+        fib_heap.insert(7)
+        fib_heap.insert(25)
+        fib_heap.insert(21)
+        fib_heap.insert(14)
+
+        expected = [1, 2, 3, 7, 9, 14, 21, 25]
+        actual = [e for e in fib_heap]
+
+        self.assertEqual(actual, expected)
+
 if __name__ == "__main__":
     nose.main()
