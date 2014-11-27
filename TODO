@@ -30,4 +30,5 @@
 # ------------------------------------------------------------------------------
 # 11/8/14  TODO: Add a bin folder to hold all c++ executables
 # ------------------------------------------------------------------------------
-# 11/16/14 TODO make this generic so you can specify whether you want a max or a min heap?
+# 11/16/14 TODO: Make this generic so you can specify whether you want a max or a min heap?
+# 11/24/14 TODO: Implement the Tortoise and the Hare algorithm for finding loops in linked lists
