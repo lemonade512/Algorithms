@@ -36,6 +36,18 @@ class TestHeapNode(unittest.TestCase):
         string = root._to_string()
         self.assertEqual("\nNode: 1\n--->Node: 2", string)
 
+    def test_to_string_recursive_loop(self):
+        node = HeapNode(1)
+        node.children = [node]
+        actual = node._to_string()
+        expected = "Recursive loop"
+
+        self.assertEqual(actual, expected)
+
+    def test_compare_to_none(self):
+        node = HeapNode(1)
+        self.assertFalse(None == node)
+
 
 class TestFibonacciHeap(unittest.TestCase):
 
@@ -213,6 +225,16 @@ class TestFibonacciHeap(unittest.TestCase):
         actual = [e for e in fib_heap]
 
         self.assertEqual(actual, expected)
+
+    def test_heapify(self):
+        l = [1,2,3,4,5]
+        heap = FibonacciHeap.heapify(l)
+
+        expected = l
+        actual = [n for n in heap]
+
+        self.assertEqual(actual, expected)
+
 
 if __name__ == "__main__":
     nose.main()
