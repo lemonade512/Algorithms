@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 '''
 Date Created: 5/18/14
 Author: Phillip Lemons
 Modified on: 5/18/14
 '''
 
-from LinkedList import LinkedList, Cell
+from Algorithms.LinkedLists.Python.linked_list import LinkedList
 
 class QueueEmptyError(Exception):
     def __init__(self, value="queue is empty"):
