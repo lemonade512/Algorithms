@@ -17,55 +17,39 @@ class DoubleStack:
         self.stack = [None for i in range(size)]
         self.cap = size
         self.size = 0
-        self.NextIndex1 = 0
-        self.NextIndex2 = size-1
+        self.front_index = 0
+        self.back_index = size-1
 
     def __repr__(self):
         return self.stack.__repr__()
 
-    def Push1(self, value):
-        if self.NextIndex1 > self.NextIndex2:
-            raise StackFullError()
+    def push_front(self, value):
+        if self.front_index > self.back_index:
+            raise StackFullError
 
-        self.stack[self.NextIndex1] = value
-        self.NextIndex1 += 1
+        self.stack[self.front_index] = value
+        self.front_index += 1
 
-    def Push2(self, value):
-        if self.NextIndex1 > self.NextIndex2:
-            raise StackFullError()
+    def push_back(self, value):
+        if self.front_index > self.back_index:
+            raise StackFullError
 
-        self.stack[self.NextIndex2] = value
-        self.NextIndex2 -= 1
+        self.stack[self.back_index] = value
+        self.back_index -= 1
 
-    def Pop1(self):
-        if self.NextIndex1 == 0:
+    def pop_front(self):
+        if self.front_index == 0:
             print "Stack is empty"
             return None
 
-        self.NextIndex1 -= 1
-        return self.stack[self.NextIndex1]
+        self.front_index -= 1
+        return self.stack[self.front_index]
 
-    def Pop2(self):
-        if self.NextIndex2 == self.cap - 1:
+    def pop_back(self):
+        if self.back_index == self.cap - 1:
             print "Stack is empty"
             return None
 
-        self.NextIndex2 += 1
-        return self.stack[self.NextIndex2]
+        self.back_index += 1
+        return self.stack[self.back_index]
 
-
-if __name__ == "__main__":
-    my_stack = DoubleStack(20)
-    print "Pushing values 1-4 to first stack"
-    for i in range(1,5):
-        my_stack.Push1(i)
-    print my_stack
-    print "Pushing values 1-4 to second stack"
-    for i in range (1,5):
-        my_stack.Push2(i)
-    print my_stack
-
-    print "\nTesting StackFullError"
-    new_stack = DoubleStack(10)
-    for i in range(1,14):
-        new_stack.Push1(i)
