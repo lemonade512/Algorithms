@@ -52,8 +52,7 @@ def _merge(arr, p, q, r):
 
 def quicksort(arr, p, r):
     if p < r:
-        #q = _partition(arr, p, r)
-        q = _randomized_partition(arr, p, r)
+        q = _partition(arr, p, r)
         quicksort(arr, p, q - 1)
         quicksort(arr, q + 1, r)
 
@@ -67,30 +66,14 @@ def _partition(arr, p, r):
     arr[i+1], arr[r] = arr[r], arr[i+1]
     return i+1
 
+def rand_quicksort(arr, p, r):
+    if p < r:
+        q = _randomized_partition(arr, p, r)
+        quicksort(arr, p, q - 1)
+        quicksort(arr, q + 1, r)
+
 def _randomized_partition(arr, p, r):
     i = random.choice(range(p, r+1))
     arr[r], arr[i] = arr[i], arr[r]
     return _partition(arr, p, r)
 
-if __name__ == "__main__":
-    print "Heapsort"
-    arr = [1, 5, 2, 7, 919, 24, 25, 12, 43]
-    print "Before:", arr
-    sorted_arr = heapsort(arr)
-    print "After:", sorted_arr
-
-    print
-
-    print "Quicksort"
-    sorted_arr = [e for e in arr]
-    print "Before:", sorted_arr
-    quicksort(sorted_arr, 0, len(sorted_arr)-1)
-    print "After:", sorted_arr
-
-    print
-
-    print "Mergesort"
-    sorted_arr = [e for e in arr]
-    print "Before:", sorted_arr
-    mergesort(sorted_arr, 0, len(sorted_arr)-1)
-    print "After:", sorted_arr
