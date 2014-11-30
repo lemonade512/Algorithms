@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# NOTE currently implements a MAX heap
+
 from math import floor
 
 from Algorithms.Heaps.Python.node import HeapNode
@@ -7,10 +9,20 @@ from Algorithms.Heaps.Python.node import HeapNode
 class BinaryHeap(object):
 
     def __init__(self):
+        self._len = 0
         self.nodes = []
 
     def __str__(self):
         return str(self.nodes)
+
+    def __len__(self):
+        return self._len
+
+    def __iter__(self):
+        """ Iterates through all nodes by popping them. """
+        while len(self.nodes) > 0:
+            node = self.pop()
+            yield node.data
 
     def insert(self, key, data=None):
         """ Inserts a node into the heap.
@@ -22,21 +34,16 @@ class BinaryHeap(object):
             data: The value of the node to insert into the heap. If left
                   blank the data will be equal to the key.
         """
-        assert(self._heap_property())
         new_node = HeapNode(key, data)
-        print "\nInserting:", new_node
         idx = len(self.nodes)
         self.nodes.append(new_node)
-        print self
 
         parent = self._parent_idx(idx)
-        while parent != None and self.nodes[parent] < self.nodes[idx]:
-            print "Switching:", self.nodes[parent], self.nodes[idx]
+        while parent is not None and self.nodes[parent] < self.nodes[idx]:
             self.nodes[parent], self.nodes[idx] = self.nodes[idx], self.nodes[parent]
-            print self
             idx = parent
             parent = self._parent_idx(idx)
-        assert(self._heap_property())
+        self._len += 1
 
     def pop(self):
         """ Pops the minimum node off the heap.
@@ -44,11 +51,12 @@ class BinaryHeap(object):
         Returns:
             The minimum node in the heap.
         """
-        # TODO test this by making a large random list, heapifying it, popping everything off,
-        #      and making sure the sorted random list and popped list are the same
-        assert(self._heap_property())
         output = self.nodes[0]
         smallest = self.nodes.pop()
+        self._len -= 1
+        if len(self.nodes) == 0:
+            return output
+
         self.nodes[0] = smallest
 
         idx = 0
@@ -74,7 +82,6 @@ class BinaryHeap(object):
             if left is None:
                 break
 
-        assert(self._heap_property())
         return output
 
     def _parent_idx(self, idx):
@@ -101,18 +108,3 @@ class BinaryHeap(object):
             child2 = None
 
         return (child1, child2)
-
-    def _heap_property(self):
-        """
-        Returns true if the all child elements are less than their parents.
-        This is the max heap property as opposed to the min heap property
-        """
-        for i, node in enumerate(self.nodes):
-            c1_idx, c2_idx = self._child_indices(i)
-            if c1_idx is not None and c1_idx < len(self.nodes) and self.nodes[c1_idx] >= node:
-                return False
-            if c2_idx is not None and c2_idx < len(self.nodes) and self.nodes[c2_idx] >= node:
-                print self.nodes
-                return False
-
-        return True

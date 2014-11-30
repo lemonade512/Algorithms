@@ -73,6 +73,17 @@ class HeapNode(TreeNode):
         self.key = key
         self.marked = False
 
+    def __cmp__(self, other):
+        if isinstance(other, HeapNode):
+            if self.key < other.key:
+                return -1
+            elif self.key == other.key:
+                return 0
+            else:
+                return 1
+        else:
+            return NotImplemented
+
     def mark(self):
         self.marked = True
 
