@@ -29,19 +29,14 @@ class LinkedList:
         """ Initializes a linked list with a sentinel cell. """
         self.top = self.Cell(None)
         self.bottom = self.top
+        self.size = 0
 
     def __contains__(self, val):
         cell = self.find(val)
         return cell is not None
 
     def __len__(self):
-        """ Calculates the length of the linked list. """
-        top = self.top
-        length = 0
-        while top.next_ is not None:
-            length += 1
-            top = top.next_
-        return length
+        return self.size
 
     def __repr__(self):
         """ Returns a string representing the linked list. """
@@ -129,6 +124,7 @@ class LinkedList:
             self.bottom = new_cell
         new_cell.next_ = self.top.next_
         self.top.next_ = new_cell
+        self.size += 1
 
     def append(self, new_value):
         """ Adds a new cell to the end of the list.
@@ -145,6 +141,7 @@ class LinkedList:
         end_cell.next_ = new_cell
         new_cell.next_ = None
         self.bottom = new_cell
+        self.size += 1
 
     def insert(self, idx, new_value):
         """ Inserts new_cell after at idx.
@@ -169,6 +166,7 @@ class LinkedList:
             self.bottom = new_cell
         new_cell.next_ = after_me.next_
         after_me.next_ = new_cell
+        self.size += 1
 
     def insert_sorted(self, new_value):
         """ Inserts a new cell into a sorted list.
@@ -191,6 +189,7 @@ class LinkedList:
             self.bottom = new_cell
         new_cell.next_ = top.next_
         top.next_ = new_cell
+        self.size += 1
 
     def delete(self, target):
         """ Deletes the cell with the target value from the list. """
@@ -206,6 +205,7 @@ class LinkedList:
             self.bottom = before
 
         before.next_ = before.next_.next_
+        self.size -= 1
 
     def insertion_sort(self):
         """ Returns a sorted list. """
@@ -250,42 +250,3 @@ class LinkedList:
 
             sorted_list.prepend(best_cell.value)
         return sorted_list
-
-#if __name__ == "__main__":
-#    list1 = LinkedList()
-#    list1.append(1)
-#    list1.append(2)
-#    list1.append(3)
-#    print "List 1:"
-#    print list1
-#    print "\nList 2:"
-#    list2 = list1.copy()
-#    print list2
-#    print "Changing list 2nd list"
-#    list2.append(4)
-#    print list1
-#    print list2
-#
-#    print "\nInsertion sort"
-#    list1 = LinkedList()
-#    list1.append(1)
-#    list1.append(12)
-#    list1.append(10)
-#    list1.append(5)
-#    list1.append(17)
-#    list1.append(5)
-#    print "Unsorted List: ", list1
-#    list2 = list1.insertion_sort()
-#    print "Sorted List: ", list2
-#
-#    print "\nSelection sort"
-#    list1 = LinkedList()
-#    list1.append(3)
-#    list1.append(14)
-#    list1.append(7)
-#    list1.append(9)
-#    list1.append(12)
-#    list1.append(1)
-#    print "Unsorted List: ", list1
-#    list2 = list1.selection_sort()
-#    print "Sorted List: ", list2
