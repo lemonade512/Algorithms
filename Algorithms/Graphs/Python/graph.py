@@ -88,33 +88,85 @@ class Graph(object):
             t_node.add_connection(f_node, cost)
 
     def is_connected(self):
-        #TODO a breadth first search will only work for undirected graphs
+        """ Checks to see if the graph is connected.
+
+        For a directed graph this checks to see if the graph is
+        weakly connected.
+        """
         #TODO make test for strongly connected digraph, weakly connected digraph
         #     and of course an undirected graph. This method should work for
-        #     undirected graphs and strongly connected graphs.
-        #TODO doesn't properly find strongly connected graph if happens to start
-        #     at the top of a tree (i.e. false positive)
+        #     undirected graphs and weakly connected graphs.
+        if self.directed:
+            # Create a new, undirected graph from self
+            graph = Graph()
+
+            for node in self.nodes:
+                for n in self.nodes[node]:
+                    graph.add_edge(n, node)
+                    graph.add_edge(node, n)
+        else:
+            graph = self
+
         # Get the first node in the dictionary
-        start = self.nodes.keys()[0]
+        # NOTE This fails if the graph is empty
+        start = graph.nodes.keys()[0]
 
         visited = []
-        for n in self.bfs(start.key):
+        for n in graph.bfs(start.key):
             visited.append(n)
 
-        return len(visited) == len(self.nodes)
+        return len(visited) == len(graph.nodes)
 
-    def is_weakly_connected(self):
-        #TODO analyze efficiency of this algorithm
-        new_graph = Graph()
+    def is_strongly_connected(self):
+        return len(self.strongly_connected_components()) < 2
 
-        # Create a new, undirected graph from self
-        #TODO test this to make sure it works
+    def strongly_connected_components(self):
+        """ Finds all of the strongly connected components in the graph.
+
+        Based on: http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
+
+        If this method is called with an undirected graph it will just
+        return the same value as is_connected.
+
+        Returns:
+            A list of the strongly connected components. Each SCC is a list of nodes.
+        """
+        index = 0
+        stack = list()
+        # Strongly Connected Component List
+        SCC_list = list()
+
+        def strongconnect(node, index):
+            # Set the depth index for node to the smallest unused index
+            node.index = index
+            node.lowlink = index
+            index += 1
+            stack.append(node)
+
+            # Consider successors of node
+            for w in self.nodes[node]:
+                if not hasattr(w, 'index'):
+                    # Successor w has not yet been visited
+                    strongconnect(w, index)
+                    node.lowlink = min(node.lowlink, w.lowlink)
+                elif w in stack:
+                    node.lowlink = min(node.lowlink, w.index)
+
+            # If node is a root node, pop the stack
+            if node.lowlink == node.index:
+                component = list()
+                while True:
+                    successor = stack.pop()
+                    component.append(successor)
+                    if successor == node:
+                        break
+                SCC_list.append(component)
+
         for node in self.nodes:
-            for n in self.nodes[node]:
-                new_graph.add_edge(n, node)
-                new_graph.add_edge(node, n)
+            if not hasattr(node, 'index'):
+                strongconnect(node, index)
 
-        return new_graph.is_connected()
+        return SCC_list
 
     def bfs(self, start):
         """ Iterates through the graph breadth first using a generator.

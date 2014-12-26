@@ -161,3 +161,49 @@ class TestGraph(unittest.TestCase):
         output = g.dijkstra(6, 1)
         expected_output = None
         self.assertEqual(output, expected_output)
+
+    def test_directed_graph_weakly_connected(self):
+        g = Graph()
+        g.add_edge(1, 2)
+        g.add_edge(1, 3)
+        g.add_edge(2, 4)
+        self.assertTrue(g.is_connected())
+
+    def test_undirected_graph_connected(self):
+        g = Graph(False)
+        g.add_edge(1, 2)
+        g.add_edge(2, 3)
+        g.add_edge(2, 4)
+        self.assertTrue(g.is_connected())
+
+    def test_not_strongly_connected(self):
+        """ Taken from http://www.cs.berkeley.edu/~vazirani/s99cs170/notes/lec12.pdf figure 2 """
+        g = Graph()
+        g.add_edge(1, 2)
+        g.add_edge(2, 3)
+        g.add_edge(2, 5)
+        g.add_edge(2, 4)
+        g.add_edge(3, 6)
+        g.add_edge(4, 5)
+        g.add_edge(4, 7)
+        g.add_edge(5, 2)
+        g.add_edge(5, 6)
+        g.add_edge(5, 7)
+        g.add_edge(6, 3)
+        g.add_edge(7, 8)
+        g.add_edge(7, 10)
+        g.add_edge(8, 7)
+        g.add_edge(9, 7)
+        g.add_edge(10, 9)
+        g.add_edge(10, 11)
+        g.add_edge(11, 12)
+        g.add_edge(12, 10)
+        self.assertFalse(g.is_strongly_connected())
+
+    def test_is_strongly_connected(self):
+        g = Graph()
+        g.add_edge(10, 11)
+        g.add_edge(11, 12)
+        g.add_edge(12, 10)
+        self.assertTrue(g.is_strongly_connected())
+

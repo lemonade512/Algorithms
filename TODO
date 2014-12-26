@@ -32,3 +32,7 @@
 # ------------------------------------------------------------------------------
 # 11/16/14 TODO: Make this generic so you can specify whether you want a max or a min heap?
 # 11/24/14 TODO: Implement the Tortoise and the Hare algorithm for finding loops in linked lists
+# ------------------------------------------------------------------------------
+# 12/26/14 TODO: Add tests for Graph.strongly_connected_components
+# 12/26/14 TODO: Use python logger to suppress all the debug print messages (run all tests with
+#				 --nocapture to see what I mean)

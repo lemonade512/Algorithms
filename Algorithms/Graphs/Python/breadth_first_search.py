@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import graph
+import Algorithms.Graphs.Python.graph
 
 """
    3--7
