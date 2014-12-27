@@ -37,3 +37,5 @@
 # 12/26/14 TODO: Use python logger to suppress all the debug print messages (run all tests with
 #				 --nocapture to see what I mean)
 # 12/26/14 TODO: Add a method to Graph to detect cycles
+# ----------------------------------------------------------------------------------------------
+# 12/27/14 TODO: Write proofs for algorithms in the docs
