@@ -7,11 +7,17 @@
 #    XXX = badly designed code
 #
 # ------------------------------------------------------------------------------
-# 5/18/14  TODO: Make a triangular array class
-# 5/18/14  TODO: Make a Sparse array class
-# 5/18/14  TODO: Find a way to use inheritance for all arrays? (this would
-#                allow reuse of common code like FindAverage or FindMinimum)
-# 5/18/14  TODO: Add test cases to Arrays section (especially look at
+# 12/27/14 DONE: Make a Matrix class
+# 12/27/14 DONE: Write tests for Matrix class
+# 12/27/14 TODO: Add transpose method to matrix class
+# 12/27/14 TODO: Add eigenvalue approximation to matrix class
+# 5/18/14  TODO: Make a triangular matrix class
+# 12/27/14 TODO: Document triangular matrix class
+# 12/27/14 TODO: Write Tests for triangular matrix class
+# 5/18/14  TODO: Make a Sparse matrix class
+# 12/27/14 TODO: Document Sparse matrix class
+# 12/27/14 TODO: Write Tests for Sparse matrix class
+# 5/18/14  DONE: Add test cases to Arrays section (especially look at
 #               ArrayStats)
 # ------------------------------------------------------------------------------
 # 5/18/14  TODO: Clean up interface for LinkedList
