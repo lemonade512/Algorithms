@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Algorithms.Graphs.Python.graph &mdash; Algorithms 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Algorithms 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Algorithms.Graphs.Python.graph</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">Algorithms.Graphs.Python.graph_node</span> <span class="kn">import</span> <span class="n">GraphNode</span>
+<span class="kn">from</span> <span class="nn">Algorithms.Heaps.Python.fibonacci_heap</span> <span class="kn">import</span> <span class="n">FibonacciHeap</span>
+
+<span class="c">#NOTE cannot have a node connected to itself</span>
+
+<div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph">[docs]</a><span class="k">class</span> <span class="nc">Graph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directed</span> <span class="o">=</span> <span class="n">directed</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Allows access like a dictionary using the node&#39;s key &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">node</span>
+
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;Could not find node with key &#39;{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Checks to see if the graph contains a node with key.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key: The key to check for in the graph.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if the key is in the graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Graph.add_node"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.add_node">[docs]</a>    <span class="k">def</span> <span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds a node to the graph with a key and data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key: The key to refer to the added node. This should be a</span>
+<span class="sd">                 unique, hashable value. If you need duplicate data use</span>
+<span class="sd">                 the val keyword. If val is not input then the data of</span>
+<span class="sd">                 the node will be the same as the key.</span>
+
+<span class="sd">            data: The data of the newly added node. If this is left blank</span>
+<span class="sd">                 then the data of the newly created node will be the same</span>
+<span class="sd">                 as the key.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError if a node with key is already in the graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;Duplicate key &#39;{0}&#39; found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">GraphNode</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">new_node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</div>
+<div class="viewcode-block" id="Graph.add_edge"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.add_edge">[docs]</a>    <span class="k">def</span> <span class="nf">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_key</span><span class="p">,</span> <span class="n">t_key</span><span class="p">,</span> <span class="n">f_data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">t_data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds an edge between the nodes with keys f_key and t_key</span>
+
+<span class="sd">        If the graph is directed the new edge will be directed from f_key</span>
+<span class="sd">        to t_key. If the graph is not directed then the edge is not directed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            f_key: The key of the from node</span>
+<span class="sd">            t_key: The key of the to node</span>
+
+<span class="sd">        KWargs:</span>
+<span class="sd">            f_val: The data of the node with key &#39;f_key&#39;. This defaults to whatever</span>
+<span class="sd">                   the node&#39;s key is.</span>
+<span class="sd">            t_val: The data of the node with key &#39;t_key&#39;. This defaults to whatever</span>
+<span class="sd">                   the nod&#39;es key is.</span>
+<span class="sd">            cost: The cost of the the edge connecting the two nodes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">f_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">f_key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">f_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">t_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">t_key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">t_data</span><span class="p">)</span>
+        <span class="n">f_node</span><span class="p">,</span> <span class="n">t_node</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">f_key</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="n">t_key</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">f_node</span><span class="p">][</span><span class="n">t_node</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span>
+        <span class="n">f_node</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">t_node</span><span class="p">,</span> <span class="n">cost</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">directed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">t_node</span><span class="p">][</span><span class="n">f_node</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span>
+            <span class="n">t_node</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">f_node</span><span class="p">,</span> <span class="n">cost</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Graph.is_connected"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.is_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Checks to see if the graph is connected.</span>
+
+<span class="sd">        For a directed graph this checks to see if the graph is</span>
+<span class="sd">        weakly connected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c">#TODO make test for strongly connected digraph, weakly connected digraph</span>
+        <span class="c">#     and of course an undirected graph. This method should work for</span>
+        <span class="c">#     undirected graphs and weakly connected graphs.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">directed</span><span class="p">:</span>
+            <span class="c"># Create a new, undirected graph from self</span>
+            <span class="n">graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+                    <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+                    <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="c"># Get the first node in the dictionary</span>
+        <span class="c"># NOTE This fails if the graph is empty</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">visited</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">bfs</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
+            <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Graph.is_strongly_connected"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.is_strongly_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_strongly_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strongly_connected_components</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">2</span>
+</div>
+<div class="viewcode-block" id="Graph.strongly_connected_components"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.strongly_connected_components">[docs]</a>    <span class="k">def</span> <span class="nf">strongly_connected_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Finds all of the strongly connected components in the graph.</span>
+
+<span class="sd">        Based on: http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm</span>
+
+<span class="sd">        If this method is called with an undirected graph it will just</span>
+<span class="sd">        return the same value as is_connected.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of the strongly connected components. Each SCC is a list of nodes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="c"># Strongly Connected Component List</span>
+        <span class="n">SCC_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">strongconnect</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+            <span class="c"># Set the depth index for node to the smallest unused index</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">lowlink</span> <span class="o">=</span> <span class="n">index</span>
+            <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+            <span class="c"># Consider successors of node</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">&#39;index&#39;</span><span class="p">):</span>
+                    <span class="c"># Successor w has not yet been visited</span>
+                    <span class="n">strongconnect</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">lowlink</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">lowlink</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">lowlink</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">stack</span><span class="p">:</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">lowlink</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">lowlink</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+            <span class="c"># If node is a root node, pop the stack</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">lowlink</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                <span class="n">component</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+                <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="n">successor</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                    <span class="n">component</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">successor</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">successor</span> <span class="o">==</span> <span class="n">node</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="n">SCC_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s">&#39;index&#39;</span><span class="p">):</span>
+                <span class="n">strongconnect</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">SCC_list</span>
+</div>
+<div class="viewcode-block" id="Graph.bfs"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.bfs">[docs]</a>    <span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Iterates through the graph breadth first using a generator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start: The key of the node to start the search from.</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            Each node&#39;s data as you search through the graph.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If start cannot be found a ValueError is raised.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Find the node with start as the key</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+
+        <span class="n">visited</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">current_node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_node</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">current_node</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">current_node</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Graph.dfs"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.dfs">[docs]</a>    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Iterates through the graph depth first using a generator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start: The key of the node to start the search from.</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            Each node&#39;s data as you search through the graph.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If start cannot be found a ValueError is raised.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Find the node based on the given key</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+
+        <span class="n">visited</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">current_node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_node</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">current_node</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">current_node</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Graph.dijkstra"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.dijkstra">[docs]</a>    <span class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Finds the shortest path from start to finish.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start: The key of the starting node.</span>
+
+<span class="sd">            finish: The key of the end node.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of keys making up the shortest path from start to finish and</span>
+<span class="sd">            the length of the path (path, length). If there are multiple least</span>
+<span class="sd">            cost paths then this algorithm returns one of them.  (You could modify</span>
+<span class="sd">            to return a subset of the current graph that contains all the least</span>
+<span class="sd">            cost paths). If there is no path this function returns None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># attr_dict contains any information we need to store about nodes for the</span>
+        <span class="c"># algorithm. Example: distance to the node</span>
+        <span class="n">attr_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">FibonacciHeap</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">attr_dict</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="n">attr_dict</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s">&#39;dist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
+            <span class="n">attr_dict</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s">&#39;heap_node&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">),</span> <span class="n">node</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s">&quot;djikstra: adding to queue&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+            <span class="n">attr_dict</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s">&#39;visited&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">attr_dict</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s">&#39;previous&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="n">attr_dict</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="n">start</span><span class="p">]][</span><span class="s">&#39;dist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="n">start</span><span class="p">])</span>
+        <span class="k">print</span> <span class="n">queue</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+            <span class="k">print</span> <span class="n">queue</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">attr_dict</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s">&#39;visited&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">attr_dict</span><span class="p">[</span><span class="n">neighbor</span><span class="p">][</span><span class="s">&#39;visited&#39;</span><span class="p">]:</span>
+                    <span class="n">alt</span> <span class="o">=</span> <span class="n">attr_dict</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s">&#39;dist&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="n">neighbor</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">alt</span> <span class="o">&lt;</span> <span class="n">attr_dict</span><span class="p">[</span><span class="n">neighbor</span><span class="p">][</span><span class="s">&#39;dist&#39;</span><span class="p">]:</span>
+                        <span class="n">attr_dict</span><span class="p">[</span><span class="n">neighbor</span><span class="p">][</span><span class="s">&#39;dist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">alt</span>
+                        <span class="n">queue</span><span class="o">.</span><span class="n">decrease_key</span><span class="p">(</span><span class="n">attr_dict</span><span class="p">[</span><span class="n">neighbor</span><span class="p">][</span><span class="s">&#39;heap_node&#39;</span><span class="p">],</span> <span class="n">alt</span><span class="p">)</span>
+                        <span class="n">attr_dict</span><span class="p">[</span><span class="n">neighbor</span><span class="p">][</span><span class="s">&#39;previous&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+
+        <span class="c"># NOTE previous contains the shortest path from start to any</span>
+        <span class="c">#      node in the graph</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">end_node</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">finish</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">attr_dict</span><span class="p">[</span><span class="n">end_node</span><span class="p">][</span><span class="s">&#39;previous&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_node</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">end_node</span> <span class="o">=</span> <span class="n">attr_dict</span><span class="p">[</span><span class="n">end_node</span><span class="p">][</span><span class="s">&#39;previous&#39;</span><span class="p">]</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">attr_dict</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="n">finish</span><span class="p">]][</span><span class="s">&#39;dist&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s">&#39;inf&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="n">finish</span><span class="p">]][</span><span class="s">&#39;dist&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Algorithms 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Phillip Lemons.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

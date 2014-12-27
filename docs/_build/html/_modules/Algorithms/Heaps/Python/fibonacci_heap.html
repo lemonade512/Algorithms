@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Algorithms.Heaps.Python.fibonacci_heap &mdash; Algorithms 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Algorithms 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Algorithms.Heaps.Python.fibonacci_heap</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">Algorithms.Heaps.Python.node</span> <span class="kn">import</span> <span class="n">HeapNode</span>
+
+<div class="viewcode-block" id="FibonacciHeap"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.fibonacci_heap.FibonacciHeap">[docs]</a><span class="k">class</span> <span class="nc">FibonacciHeap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    NOTE: this implements a minimum heap where the minimum</span>
+<span class="sd">          always at the top.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Initializes an empty heap. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># This is how many nodes we have</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trees</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns how many nodes are in the heap. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Iterates through all nodes by popping them. &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">yield</span> <span class="n">node</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="FibonacciHeap.heapify"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.fibonacci_heap.FibonacciHeap.heapify">[docs]</a>    <span class="k">def</span> <span class="nf">heapify</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Turns an iterable data structure into a heap.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arr: The list/array/etc that you want to create a heap with.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A heap with the elements from the list/array/etc.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">heap</span> <span class="o">=</span> <span class="n">FibonacciHeap</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
+            <span class="n">heap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">heap</span>
+</div>
+<div class="viewcode-block" id="FibonacciHeap.insert"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.fibonacci_heap.FibonacciHeap.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Creates a new node and inserts it into the heap.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key: A comparable value representing the priority of the</span>
+<span class="sd">                 new node.</span>
+<span class="sd">            data: The data of the new node. If left blank the data is</span>
+<span class="sd">                  set to equal the key.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The newly created node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">key</span>
+
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">HeapNode</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_node</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_min_idx</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_min_item_prop</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">new_node</span>
+</div>
+<div class="viewcode-block" id="FibonacciHeap.decrease_key"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.fibonacci_heap.FibonacciHeap.decrease_key">[docs]</a>    <span class="k">def</span> <span class="nf">decrease_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">new_key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Decreases the key of the specified node.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node (HeapNode): The node to decrease the key of.</span>
+
+<span class="sd">            new_key: The new key of the node. This must be less than the current</span>
+<span class="sd">                     key of the node and comparable to other keys used in the heap.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap_property</span><span class="p">())</span>
+
+        <span class="c"># If the new key is greater than the node&#39;s key, ignore and return</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">new_key</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">new_key</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span>
+        <span class="c"># Check if the heap property is invalidated</span>
+        <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">new_key</span> <span class="o">&lt;=</span> <span class="n">parent</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+            <span class="c"># Cut node and make it a root</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">marked</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cascading_cut</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_min_idx</span><span class="p">()</span>
+
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_min_item_prop</span><span class="p">())</span>
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap_property</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="FibonacciHeap.delete"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.fibonacci_heap.FibonacciHeap.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Deletes the node from the heap.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node (HeapNode): What node to delete.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The deleted node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decrease_key</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s">&quot;-inf&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="FibonacciHeap.merge"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.fibonacci_heap.FibonacciHeap.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Merges two heaps.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other (FibonacciHeap): Heap to merge with self</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The new, merged, heap.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">heap</span> <span class="o">=</span> <span class="n">FibonacciHeap</span><span class="p">()</span>
+        <span class="n">heap</span><span class="o">.</span><span class="n">trees</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">trees</span>
+        <span class="n">heap</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">count</span>
+        <span class="n">heap</span><span class="o">.</span><span class="n">_update_min_idx</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">heap</span>
+</div>
+<div class="viewcode-block" id="FibonacciHeap.peek"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.fibonacci_heap.FibonacciHeap.peek">[docs]</a>    <span class="k">def</span> <span class="nf">peek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the top node in the heap. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="FibonacciHeap.pop"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.fibonacci_heap.FibonacciHeap.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Takes the top node off the heap and consolidates.</span>
+<span class="sd">        (Also called delete minimum or extract minimum)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Node with the minimum key</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap_property</span><span class="p">())</span>
+        <span class="c"># Get minimum value, remove root, use root&#39;s children as new roots</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span><span class="p">]</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span><span class="p">]</span><span class="o">.</span><span class="n">children</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">child</span> <span class="o">=</span> <span class="n">children</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span><span class="p">]</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_consolidate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_min_idx</span><span class="p">()</span>
+
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_heap_property</span><span class="p">())</span>
+        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_min_item_prop</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">output</span>
+</div>
+    <span class="k">def</span> <span class="nf">_cascading_cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">:</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">marked</span><span class="p">:</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">mark</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">marked</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cascading_cut</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_min_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Iterates through all the roots and updates the min_idx with</span>
+<span class="sd">        the index of the root with the smallest key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">min_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="n">min_idx</span><span class="p">]</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+                <span class="n">min_idx</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span> <span class="o">=</span> <span class="n">min_idx</span>
+
+    <span class="k">def</span> <span class="nf">_consolidate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Consolidates the nodes of the heap into trees.</span>
+
+<span class="sd">        Only one tree of a particular degree is allowed. For instance,</span>
+<span class="sd">        you can have a tree of degree 2 and a tree of degree 3 but not</span>
+<span class="sd">        two trees of degree 2.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Link roots with the same degree until every root has different degree</span>
+        <span class="n">max_degree</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+        <span class="n">degree_array</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_degree</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="c"># Initialize a big enough array</span>
+        <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">:</span>
+            <span class="n">degree</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span>
+            <span class="n">degree_array</span><span class="p">[</span><span class="n">degree</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+        <span class="c"># Do this while m &gt; 1. Breaks when m &lt;= 1</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="c"># m is the max number of trees of a certain degree. For instance,</span>
+            <span class="c"># if there are 3 trees of degree 2 and 2 trees of degree 1 then</span>
+            <span class="c"># m == 3</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">degree_array</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="k">for</span> <span class="n">tree_list</span> <span class="ow">in</span> <span class="n">degree_array</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tree_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c"># Consolidate 2 trees of degree k to 1 tree of degree k+1</span>
+                    <span class="n">t1</span> <span class="o">=</span> <span class="n">tree_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">t2</span> <span class="o">=</span> <span class="n">tree_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+                    <span class="n">min_t</span> <span class="o">=</span> <span class="bp">None</span>
+                    <span class="k">if</span> <span class="n">t1</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">t2</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+                        <span class="n">min_t</span> <span class="o">=</span> <span class="n">t2</span>
+                        <span class="n">t2</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">min_t</span> <span class="o">=</span> <span class="n">t1</span>
+                        <span class="n">t1</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+
+                    <span class="c"># Delete the consolidated trees from their original location</span>
+                    <span class="k">del</span> <span class="n">tree_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="n">tree_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+                    <span class="n">degree</span> <span class="o">=</span> <span class="n">min_t</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span>
+                    <span class="n">degree_array</span><span class="p">[</span><span class="n">degree</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">min_t</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">trees</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">degree_array</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_min_item_prop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="n">expected_min_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span><span class="p">]</span><span class="o">.</span><span class="n">key</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">:</span>
+            <span class="n">min_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_min</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">min_key</span> <span class="o">&lt;</span> <span class="n">expected_min_key</span><span class="p">:</span>
+                <span class="n">expected_min_key</span> <span class="o">=</span> <span class="n">min_key</span>
+
+        <span class="n">actual_min_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">min_idx</span><span class="p">]</span><span class="o">.</span><span class="n">key</span>
+
+        <span class="k">if</span> <span class="n">expected_min_key</span> <span class="o">!=</span> <span class="n">actual_min_key</span><span class="p">:</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">key</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">]</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">_find_min</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+
+        <span class="n">min_key</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="n">new_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_min</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">new_key</span> <span class="o">&lt;</span> <span class="n">min_key</span><span class="p">:</span>
+                <span class="n">min_key</span> <span class="o">=</span> <span class="n">new_key</span>
+
+        <span class="k">return</span> <span class="n">min_key</span>
+
+    <span class="k">def</span> <span class="nf">_heap_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Checks if the heap is a valid FibonacciHeap.</span>
+
+<span class="sd">        This function is used for testing purposes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if the heap is valid and False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">t</span><span class="o">.</span><span class="n">valid_heap</span><span class="p">():</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="c"># Make sure none of the root nodes are marked</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trees</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">marked</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Algorithms 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Phillip Lemons.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
