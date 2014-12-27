@@ -23,6 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
@@ -51,13 +52,13 @@
 
 <span class="kn">from</span> <span class="nn">Algorithms.LinkedLists.Python.linked_list</span> <span class="kn">import</span> <span class="n">LinkedList</span>
 
-<div class="viewcode-block" id="QueueEmptyError"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.QueueEmptyError">[docs]</a><span class="k">class</span> <span class="nc">QueueEmptyError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="QueueEmptyError"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.QueueEmptyError">[docs]</a><span class="k">class</span> <span class="nc">QueueEmptyError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">&quot;queue is empty&quot;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="LinkedListQueue"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.LinkedListQueue">[docs]</a><span class="k">class</span> <span class="nc">LinkedListQueue</span><span class="p">:</span>
+<div class="viewcode-block" id="LinkedListQueue"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.LinkedListQueue">[docs]</a><span class="k">class</span> <span class="nc">LinkedListQueue</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">()</span>
@@ -69,11 +70,11 @@
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 
-<div class="viewcode-block" id="LinkedListQueue.enqueue"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.LinkedListQueue.enqueue">[docs]</a>    <span class="k">def</span> <span class="nf">enqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="LinkedListQueue.enqueue"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.LinkedListQueue.enqueue">[docs]</a>    <span class="k">def</span> <span class="nf">enqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">prepend</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="LinkedListQueue.dequeue"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.LinkedListQueue.dequeue">[docs]</a>    <span class="k">def</span> <span class="nf">dequeue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LinkedListQueue.dequeue"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.LinkedListQueue.dequeue">[docs]</a>    <span class="k">def</span> <span class="nf">dequeue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">QueueEmptyError</span>
 
@@ -82,7 +83,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">value</span>
 </div></div>
-<div class="viewcode-block" id="ArrayQueue"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.ArrayQueue">[docs]</a><span class="k">class</span> <span class="nc">ArrayQueue</span><span class="p">:</span>
+<div class="viewcode-block" id="ArrayQueue"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.ArrayQueue">[docs]</a><span class="k">class</span> <span class="nc">ArrayQueue</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="p">[]</span>
@@ -93,10 +94,10 @@
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ArrayQueue.enqueue"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.ArrayQueue.enqueue">[docs]</a>    <span class="k">def</span> <span class="nf">enqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="ArrayQueue.enqueue"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.ArrayQueue.enqueue">[docs]</a>    <span class="k">def</span> <span class="nf">enqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="ArrayQueue.dequeue"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.ArrayQueue.dequeue">[docs]</a>    <span class="k">def</span> <span class="nf">dequeue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ArrayQueue.dequeue"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.queues.ArrayQueue.dequeue">[docs]</a>    <span class="k">def</span> <span class="nf">dequeue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">QueueEmptyError</span>
 

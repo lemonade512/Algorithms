@@ -23,6 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
@@ -50,10 +51,10 @@
 <span class="c">#!/usr/bin/env python</span>
 
 <span class="c">#TODO Should this really be a value error?</span>
-<div class="viewcode-block" id="RecursiveTreeError"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.RecursiveTreeError">[docs]</a><span class="k">class</span> <span class="nc">RecursiveTreeError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+<div class="viewcode-block" id="RecursiveTreeError"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.RecursiveTreeError">[docs]</a><span class="k">class</span> <span class="nc">RecursiveTreeError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
     <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="TreeNode"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.TreeNode">[docs]</a><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeNode"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.TreeNode">[docs]</a><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
@@ -63,7 +64,7 @@
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_string</span><span class="p">()</span>
 
-<div class="viewcode-block" id="TreeNode.add_child"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.TreeNode.add_child">[docs]</a>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeNode.add_child"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.TreeNode.add_child">[docs]</a>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Adds a child to the node&#39;s children.</span>
 
 <span class="sd">        Args:</span>
@@ -75,7 +76,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
         <span class="n">child</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
 </div>
-<div class="viewcode-block" id="TreeNode.cut"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.TreeNode.cut">[docs]</a>    <span class="k">def</span> <span class="nf">cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeNode.cut"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.TreeNode.cut">[docs]</a>    <span class="k">def</span> <span class="nf">cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
         <span class="c">#TODO test this cuts proper child</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Cuts child from the nodes children</span>
@@ -88,7 +89,7 @@
 
         <span class="k">return</span> <span class="bp">None</span>
 </div>
-<div class="viewcode-block" id="TreeNode.degree"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.TreeNode.degree">[docs]</a>    <span class="k">def</span> <span class="nf">degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeNode.degree"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.TreeNode.degree">[docs]</a>    <span class="k">def</span> <span class="nf">degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span>
 
@@ -112,7 +113,7 @@
 
         <span class="k">return</span> <span class="n">string</span>
 </div>
-<div class="viewcode-block" id="HeapNode"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.HeapNode">[docs]</a><span class="k">class</span> <span class="nc">HeapNode</span><span class="p">(</span><span class="n">TreeNode</span><span class="p">):</span>
+<div class="viewcode-block" id="HeapNode"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.HeapNode">[docs]</a><span class="k">class</span> <span class="nc">HeapNode</span><span class="p">(</span><span class="n">TreeNode</span><span class="p">):</span>
     <span class="c">#TODO make this a HeapNode and use it in binary heap</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
@@ -133,10 +134,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
 
-<div class="viewcode-block" id="HeapNode.mark"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.HeapNode.mark">[docs]</a>    <span class="k">def</span> <span class="nf">mark</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HeapNode.mark"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.HeapNode.mark">[docs]</a>    <span class="k">def</span> <span class="nf">mark</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">marked</span> <span class="o">=</span> <span class="bp">True</span>
 </div>
-<div class="viewcode-block" id="HeapNode.valid_heap"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.HeapNode.valid_heap">[docs]</a>    <span class="k">def</span> <span class="nf">valid_heap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HeapNode.valid_heap"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.node.HeapNode.valid_heap">[docs]</a>    <span class="k">def</span> <span class="nf">valid_heap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">True</span>
 

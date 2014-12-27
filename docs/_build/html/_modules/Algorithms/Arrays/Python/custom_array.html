@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Algorithms.Arrays.Python.custom_array &mdash; Algorithms 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Algorithms 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Algorithms.Arrays.Python.custom_array</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+
+<span class="sd">&quot;&quot;&quot; This module contains a customized array class that can be used much</span>
+<span class="sd">like a python list with a few extra methods.</span>
+
+<span class="sd">This module needs to be named something other than array.py because</span>
+<span class="sd">there is a builtin module called array in the standard library.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+<div class="viewcode-block" id="Array"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array">[docs]</a><span class="k">class</span> <span class="nc">Array</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A basic array data structure.</span>
+
+<span class="sd">    In python this class is a bit unnecessary as most of the methods are already</span>
+<span class="sd">    implemented using a python list. That being said, I still wanted to have an</span>
+<span class="sd">    array class that added the properties std_deviation, average, and sample_variance.</span>
+
+<span class="sd">    Also, this serves as a good baseline for what a similar class in other languages</span>
+<span class="sd">    (like c++ or haskell) should look like.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_vals</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start_vals</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arr</span> <span class="o">=</span> <span class="n">start_vals</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the number of elements in self. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a string representation of self. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Array.insert"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Inserts an item into the array pushing everything else to the right.</span>
+
+<span class="sd">        If the index is larger than the array, then the new element will just be</span>
+<span class="sd">        appended to the end.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            idx (int): The index to insert the new value</span>
+<span class="sd">            val: The new value to insert</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; arr = Array()</span>
+<span class="sd">            &gt;&gt;&gt; arr.insert(0, 0)</span>
+<span class="sd">            &gt;&gt;&gt; arr.insert(1, 1)</span>
+<span class="sd">            &gt;&gt;&gt; print arr</span>
+<span class="sd">            [0, 1]</span>
+<span class="sd">            &gt;&gt;&gt; arr.insert(0, -1)</span>
+<span class="sd">            &gt;&gt;&gt; print arr</span>
+<span class="sd">            [-1, 0, 1]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Array.remove"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Removes the item at the given index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            idx (int): The index of the element to delete.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; a = Array()</span>
+<span class="sd">            &gt;&gt;&gt; a.insert(0, 0)</span>
+<span class="sd">            &gt;&gt;&gt; a.insert(1, 1)</span>
+<span class="sd">            &gt;&gt;&gt; a.insert(2, 2)</span>
+<span class="sd">            &gt;&gt;&gt; print a</span>
+<span class="sd">            [0, 1, 2]</span>
+<span class="sd">            &gt;&gt;&gt; a.remove(1)</span>
+<span class="sd">            &gt;&gt;&gt; print a</span>
+<span class="sd">            [0, 2]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Array.index_of"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array.index_of">[docs]</a>    <span class="k">def</span> <span class="nf">index_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Finds the index of a target value.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target: The value to search for</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The index of the target value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">i</span>
+
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Array.minimum"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array.minimum">[docs]</a>    <span class="k">def</span> <span class="nf">minimum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the minimum element of the array.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; a = Array()</span>
+<span class="sd">            &gt;&gt;&gt; a.insert(0, 0)</span>
+<span class="sd">            &gt;&gt;&gt; a.insert(1, 1)</span>
+<span class="sd">            &gt;&gt;&gt; a.minimum</span>
+<span class="sd">            0</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">minimum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">elem</span> <span class="o">&lt;</span> <span class="n">minimum</span><span class="p">:</span>
+                <span class="n">minimum</span> <span class="o">=</span> <span class="n">elem</span>
+        <span class="k">return</span> <span class="n">minimum</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Array.maximum"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array.maximum">[docs]</a>    <span class="k">def</span> <span class="nf">maximum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the maximum element of the array.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; a = Array()</span>
+<span class="sd">            &gt;&gt;&gt; a.insert(0, &quot;hello&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; a.insert(1, &quot;goodbye&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; a.insert(2, &quot;zen of python&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; a.maximum</span>
+<span class="sd">            &#39;zen of python&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">maximum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">elem</span> <span class="o">&gt;</span> <span class="n">maximum</span><span class="p">:</span>
+                <span class="n">maximum</span> <span class="o">=</span> <span class="n">elem</span>
+        <span class="k">return</span> <span class="n">maximum</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Array.average"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array.average">[docs]</a>    <span class="k">def</span> <span class="nf">average</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the average value of the array.</span>
+
+<span class="sd">        This is only defined for arrays that contain number elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">:</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">elem</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Array.sample_variance"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array.sample_variance">[docs]</a>    <span class="k">def</span> <span class="nf">sample_variance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Finds the sample variance of the array.</span>
+
+<span class="sd">        Uses the equation :math:`\\frac{1} {n} * \\sum_{i=1}^{n}(x_i - \\mu)^2`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">average</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">average</span>
+
+        <span class="n">arr_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">:</span>
+            <span class="n">arr_sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">num</span> <span class="o">-</span> <span class="n">average</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="k">return</span> <span class="n">arr_sum</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Array.std_deviation"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Arrays.Python.html#Algorithms.Arrays.Python.custom_array.Array.std_deviation">[docs]</a>    <span class="k">def</span> <span class="nf">std_deviation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">smpl_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_variance</span>
+
+        <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">smpl_var</span><span class="p">)</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c">#array = Array([1,4,5,23,6,6,3,2,43])</span>
+    <span class="c">#print array</span>
+    <span class="c">#print &quot;Maximum: &quot; + str(array.maximum)</span>
+    <span class="c">#print &quot;Minimum: &quot; + str(array.minimum)</span>
+    <span class="c">#print &quot;Average: &quot; + str(array.average)</span>
+    <span class="c">#print &quot;Sample Variance: &quot; + str(array.sample_variance)</span>
+    <span class="c">#print &quot;Standard Deviation: &quot; + str(array.std_deviation)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Algorithms 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Phillip Lemons.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

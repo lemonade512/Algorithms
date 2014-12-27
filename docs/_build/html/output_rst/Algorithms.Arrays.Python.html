@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Algorithms.Arrays.Python package &mdash; Algorithms 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Algorithms 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Algorithms.Arrays package" href="Algorithms.Arrays.html" />
+    <link rel="next" title="Algorithms.Graphs package" href="Algorithms.Graphs.html" />
+    <link rel="prev" title="Algorithms.Arrays package" href="Algorithms.Arrays.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Algorithms.Graphs.html" title="Algorithms.Graphs package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Algorithms.Arrays.html" title="Algorithms.Arrays package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Algorithms 1.0 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >Algorithms</a> &raquo;</li>
+          <li><a href="Algorithms.html" >Algorithms package</a> &raquo;</li>
+          <li><a href="Algorithms.Arrays.html" accesskey="U">Algorithms.Arrays package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="algorithms-arrays-python-package">
+<h1>Algorithms.Arrays.Python package<a class="headerlink" href="#algorithms-arrays-python-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-Algorithms.Arrays.Python.custom_array">
+<span id="algorithms-arrays-python-custom-array-module"></span><h2>Algorithms.Arrays.Python.custom_array module<a class="headerlink" href="#module-Algorithms.Arrays.Python.custom_array" title="Permalink to this headline">¶</a></h2>
+<p>This module contains a customized array class that can be used much
+like a python list with a few extra methods.</p>
+<p>This module needs to be named something other than array.py because
+there is a builtin module called array in the standard library.</p>
+<dl class="class">
+<dt id="Algorithms.Arrays.Python.custom_array.Array">
+<em class="property">class </em><tt class="descclassname">Algorithms.Arrays.Python.custom_array.</tt><tt class="descname">Array</tt><big>(</big><em>start_vals=None</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A basic array data structure.</p>
+<p>In python this class is a bit unnecessary as most of the methods are already
+implemented using a python list. That being said, I still wanted to have an
+array class that added the properties std_deviation, average, and sample_variance.</p>
+<p>Also, this serves as a good baseline for what a similar class in other languages
+(like c++ or haskell) should look like.</p>
+<dl class="attribute">
+<dt id="Algorithms.Arrays.Python.custom_array.Array.average">
+<tt class="descname">average</tt><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array.average"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array.average" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the average value of the array.</p>
+<p>This is only defined for arrays that contain number elements.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Algorithms.Arrays.Python.custom_array.Array.index_of">
+<tt class="descname">index_of</tt><big>(</big><em>target</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array.index_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array.index_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the index of a target value.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>target: The value to search for</dd>
+<dt>Returns:</dt>
+<dd>The index of the target value</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Algorithms.Arrays.Python.custom_array.Array.insert">
+<tt class="descname">insert</tt><big>(</big><em>idx</em>, <em>val</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts an item into the array pushing everything else to the right.</p>
+<p>If the index is larger than the array, then the new element will just be
+appended to the end.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>idx (int): The index to insert the new value
+val: The new value to insert</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">arr</span>
+<span class="go">[0, 1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">arr</span>
+<span class="go">[-1, 0, 1]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Algorithms.Arrays.Python.custom_array.Array.maximum">
+<tt class="descname">maximum</tt><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array.maximum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array.maximum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum element of the array.</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;goodbye&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;zen of python&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">maximum</span>
+<span class="go">&#39;zen of python&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Algorithms.Arrays.Python.custom_array.Array.minimum">
+<tt class="descname">minimum</tt><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array.minimum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array.minimum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the minimum element of the array.</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">minimum</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Algorithms.Arrays.Python.custom_array.Array.remove">
+<tt class="descname">remove</tt><big>(</big><em>idx</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the item at the given index.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>idx (int): The index of the element to delete.</dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">a</span>
+<span class="go">[0, 1, 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">a</span>
+<span class="go">[0, 2]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Algorithms.Arrays.Python.custom_array.Array.sample_variance">
+<tt class="descname">sample_variance</tt><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array.sample_variance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array.sample_variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the sample variance of the array.</p>
+<p>Uses the equation <span class="math">\(\frac{1} {n} * \sum_{i=1}^{n}(x_i - \mu)^2\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Algorithms.Arrays.Python.custom_array.Array.std_deviation">
+<tt class="descname">std_deviation</tt><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/custom_array.html#Array.std_deviation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.custom_array.Array.std_deviation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Algorithms.Arrays.Python.multi_dimensional_array">
+<span id="algorithms-arrays-python-multi-dimensional-array-module"></span><h2>Algorithms.Arrays.Python.multi_dimensional_array module<a class="headerlink" href="#module-Algorithms.Arrays.Python.multi_dimensional_array" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Algorithms.Arrays.Python.multi_dimensional_array.initialize_array">
+<tt class="descclassname">Algorithms.Arrays.Python.multi_dimensional_array.</tt><tt class="descname">initialize_array</tt><big>(</big><em>bounds</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/multi_dimensional_array.html#initialize_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.multi_dimensional_array.initialize_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Algorithms.Arrays.Python.multi_dimensional_array.map_indices_to_index">
+<tt class="descclassname">Algorithms.Arrays.Python.multi_dimensional_array.</tt><tt class="descname">map_indices_to_index</tt><big>(</big><em>indices</em>, <em>LowerBound</em>, <em>SliceSize</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/multi_dimensional_array.html#map_indices_to_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.multi_dimensional_array.map_indices_to_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-Algorithms.Arrays.Python.sparse_array">
+<span id="algorithms-arrays-python-sparse-array-module"></span><h2>Algorithms.Arrays.Python.sparse_array module<a class="headerlink" href="#module-Algorithms.Arrays.Python.sparse_array" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Algorithms.Arrays.Python.sparse_array.SparseArray">
+<em class="property">class </em><tt class="descclassname">Algorithms.Arrays.Python.sparse_array.</tt><tt class="descname">SparseArray</tt><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/sparse_array.html#SparseArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.sparse_array.SparseArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="class">
+<dt id="Algorithms.Arrays.Python.sparse_array.SparseArray.ArrayEntry">
+<em class="property">class </em><tt class="descname">ArrayEntry</tt><big>(</big><em>value=None</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/sparse_array.html#SparseArray.ArrayEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.sparse_array.SparseArray.ArrayEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Class representing a singular entry in a row.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Algorithms.Arrays.Python.sparse_array.SparseArray.ArrayRow">
+<em class="property">class </em><tt class="descclassname">SparseArray.</tt><tt class="descname">ArrayRow</tt><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/sparse_array.html#SparseArray.ArrayRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.sparse_array.SparseArray.ArrayRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Class representing a row of values.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Algorithms.Arrays.Python.sparse_array.SparseArray.delete_entry">
+<tt class="descclassname">SparseArray.</tt><tt class="descname">delete_entry</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/sparse_array.html#SparseArray.delete_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.sparse_array.SparseArray.delete_entry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Algorithms.Arrays.Python.sparse_array.SparseArray.find_row_before">
+<tt class="descclassname">SparseArray.</tt><tt class="descname">find_row_before</tt><big>(</big><em>row</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/sparse_array.html#SparseArray.find_row_before"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.sparse_array.SparseArray.find_row_before" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Algorithms.Arrays.Python.sparse_array.SparseArray.get">
+<tt class="descclassname">SparseArray.</tt><tt class="descname">get</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/sparse_array.html#SparseArray.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.sparse_array.SparseArray.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Algorithms.Arrays.Python.sparse_array.SparseArray.set">
+<tt class="descclassname">SparseArray.</tt><tt class="descname">set</tt><big>(</big><em>row</em>, <em>col</em>, <em>value</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/sparse_array.html#SparseArray.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.sparse_array.SparseArray.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Algorithms.Arrays.Python.triangular_array">
+<span id="algorithms-arrays-python-triangular-array-module"></span><h2>Algorithms.Arrays.Python.triangular_array module<a class="headerlink" href="#module-Algorithms.Arrays.Python.triangular_array" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Algorithms.Arrays.Python.triangular_array.initialize_array">
+<tt class="descclassname">Algorithms.Arrays.Python.triangular_array.</tt><tt class="descname">initialize_array</tt><big>(</big><em>rows</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/triangular_array.html#initialize_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.triangular_array.initialize_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Algorithms.Arrays.Python.triangular_array.map_index">
+<tt class="descclassname">Algorithms.Arrays.Python.triangular_array.</tt><tt class="descname">map_index</tt><big>(</big><em>r</em>, <em>c</em><big>)</big><a class="reference internal" href="../_modules/Algorithms/Arrays/Python/triangular_array.html#map_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Algorithms.Arrays.Python.triangular_array.map_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-Algorithms.Arrays.Python">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Algorithms.Arrays.Python" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Algorithms.Arrays.Python package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-Algorithms.Arrays.Python.custom_array">Algorithms.Arrays.Python.custom_array module</a></li>
+<li><a class="reference internal" href="#module-Algorithms.Arrays.Python.multi_dimensional_array">Algorithms.Arrays.Python.multi_dimensional_array module</a></li>
+<li><a class="reference internal" href="#module-Algorithms.Arrays.Python.sparse_array">Algorithms.Arrays.Python.sparse_array module</a></li>
+<li><a class="reference internal" href="#module-Algorithms.Arrays.Python.triangular_array">Algorithms.Arrays.Python.triangular_array module</a></li>
+<li><a class="reference internal" href="#module-Algorithms.Arrays.Python">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Algorithms.Arrays.html"
+                        title="previous chapter">Algorithms.Arrays package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Algorithms.Graphs.html"
+                        title="next chapter">Algorithms.Graphs package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/output_rst/Algorithms.Arrays.Python.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Algorithms.Graphs.html" title="Algorithms.Graphs package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Algorithms.Arrays.html" title="Algorithms.Arrays package"
+             >previous</a> |</li>
+        <li><a href="../index.html">Algorithms 1.0 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >Algorithms</a> &raquo;</li>
+          <li><a href="Algorithms.html" >Algorithms package</a> &raquo;</li>
+          <li><a href="Algorithms.Arrays.html" >Algorithms.Arrays package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Phillip Lemons.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

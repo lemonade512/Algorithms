@@ -23,6 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
@@ -51,13 +52,13 @@
 
 <span class="kn">from</span> <span class="nn">Algorithms.LinkedLists.Python.linked_list</span> <span class="kn">import</span> <span class="n">LinkedList</span>
 
-<div class="viewcode-block" id="StackFullError"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.StackFullError">[docs]</a><span class="k">class</span> <span class="nc">StackFullError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="StackFullError"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.StackFullError">[docs]</a><span class="k">class</span> <span class="nc">StackFullError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">&quot;stack is full&quot;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="LinkedListStack"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.LinkedListStack">[docs]</a><span class="k">class</span> <span class="nc">LinkedListStack</span><span class="p">:</span>
+<div class="viewcode-block" id="LinkedListStack"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.LinkedListStack">[docs]</a><span class="k">class</span> <span class="nc">LinkedListStack</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">()</span>
@@ -75,11 +76,11 @@
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
-<div class="viewcode-block" id="LinkedListStack.push"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.LinkedListStack.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="LinkedListStack.push"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.LinkedListStack.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Pushes an item onto the top of the stack. &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="LinkedListStack.pop"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.LinkedListStack.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LinkedListStack.pop"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.LinkedListStack.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Pops the next value off the stack.</span>
 
 <span class="sd">        Raises:</span>
@@ -94,11 +95,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span>
 </div>
-<div class="viewcode-block" id="LinkedListStack.is_empty"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.LinkedListStack.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LinkedListStack.is_empty"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.LinkedListStack.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns whether the stack is empty or not. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 </div></div>
-<div class="viewcode-block" id="ArrayStack"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.ArrayStack">[docs]</a><span class="k">class</span> <span class="nc">ArrayStack</span><span class="p">:</span>
+<div class="viewcode-block" id="ArrayStack"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.ArrayStack">[docs]</a><span class="k">class</span> <span class="nc">ArrayStack</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
@@ -111,17 +112,17 @@
         <span class="sd">&quot;&quot;&quot; Returns the number of elements in the stack. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ArrayStack.push"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.ArrayStack.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="ArrayStack.push"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.ArrayStack.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Pushes a value to the top of the stack. &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="ArrayStack.pop"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.ArrayStack.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ArrayStack.pop"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.ArrayStack.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Pops the value off the top of the stack. &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">value</span>
 </div></div>
-<div class="viewcode-block" id="DoubleStack"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack">[docs]</a><span class="k">class</span> <span class="nc">DoubleStack</span><span class="p">:</span>
+<div class="viewcode-block" id="DoubleStack"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack">[docs]</a><span class="k">class</span> <span class="nc">DoubleStack</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]</span>
@@ -132,28 +133,28 @@
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">__repr__</span><span class="p">()</span>
 
-<div class="viewcode-block" id="DoubleStack.push_front"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack.push_front">[docs]</a>    <span class="k">def</span> <span class="nf">push_front</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="DoubleStack.push_front"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack.push_front">[docs]</a>    <span class="k">def</span> <span class="nf">push_front</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">front_index</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">back_index</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">StackFullError</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">front_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">front_index</span> <span class="o">+=</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="DoubleStack.push_back"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack.push_back">[docs]</a>    <span class="k">def</span> <span class="nf">push_back</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="DoubleStack.push_back"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack.push_back">[docs]</a>    <span class="k">def</span> <span class="nf">push_back</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">front_index</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">back_index</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">StackFullError</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">back_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">back_index</span> <span class="o">-=</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="DoubleStack.pop_front"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack.pop_front">[docs]</a>    <span class="k">def</span> <span class="nf">pop_front</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DoubleStack.pop_front"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack.pop_front">[docs]</a>    <span class="k">def</span> <span class="nf">pop_front</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">front_index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s">&quot;Front of stack is empty&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">front_index</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">front_index</span><span class="p">]</span>
 </div>
-<div class="viewcode-block" id="DoubleStack.pop_back"><a class="viewcode-back" href="../../../../test_docs/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack.pop_back">[docs]</a>    <span class="k">def</span> <span class="nf">pop_back</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DoubleStack.pop_back"><a class="viewcode-back" href="../../../../output_rst/Algorithms.StacksAndQueues.Python.html#Algorithms.StacksAndQueues.Python.stacks.DoubleStack.pop_back">[docs]</a>    <span class="k">def</span> <span class="nf">pop_back</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">back_index</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s">&quot;Back of stack is empty&quot;</span><span class="p">)</span>
 

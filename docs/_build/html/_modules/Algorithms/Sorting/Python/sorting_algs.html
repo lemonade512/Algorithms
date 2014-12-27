@@ -23,6 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
@@ -54,13 +55,13 @@
 
 <span class="kn">from</span> <span class="nn">Algorithms.Heaps.Python.fibonacci_heap</span> <span class="kn">import</span> <span class="n">FibonacciHeap</span>
 
-<div class="viewcode-block" id="heapsort"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Sorting.Python.html#Algorithms.Sorting.Python.sorting_algs.heapsort">[docs]</a><span class="k">def</span> <span class="nf">heapsort</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+<div class="viewcode-block" id="heapsort"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Sorting.Python.html#Algorithms.Sorting.Python.sorting_algs.heapsort">[docs]</a><span class="k">def</span> <span class="nf">heapsort</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Sorts an iterable data structure and returns an array. &quot;&quot;&quot;</span>
     <span class="n">heap</span> <span class="o">=</span> <span class="n">FibonacciHeap</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
     <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">heap</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">output</span>
 </div>
-<div class="viewcode-block" id="mergesort"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Sorting.Python.html#Algorithms.Sorting.Python.sorting_algs.mergesort">[docs]</a><span class="k">def</span> <span class="nf">mergesort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<div class="viewcode-block" id="mergesort"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Sorting.Python.html#Algorithms.Sorting.Python.sorting_algs.mergesort">[docs]</a><span class="k">def</span> <span class="nf">mergesort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="c"># Base case is when there is one element then everything is sorted</span>
     <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
         <span class="c"># q is the mid point of the array</span>
@@ -99,7 +100,7 @@
             <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
             <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<div class="viewcode-block" id="quicksort"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Sorting.Python.html#Algorithms.Sorting.Python.sorting_algs.quicksort">[docs]</a><span class="k">def</span> <span class="nf">quicksort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<div class="viewcode-block" id="quicksort"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Sorting.Python.html#Algorithms.Sorting.Python.sorting_algs.quicksort">[docs]</a><span class="k">def</span> <span class="nf">quicksort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">_partition</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
         <span class="n">quicksort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -115,7 +116,7 @@
     <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
 
-<div class="viewcode-block" id="rand_quicksort"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Sorting.Python.html#Algorithms.Sorting.Python.sorting_algs.rand_quicksort">[docs]</a><span class="k">def</span> <span class="nf">rand_quicksort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<div class="viewcode-block" id="rand_quicksort"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Sorting.Python.html#Algorithms.Sorting.Python.sorting_algs.rand_quicksort">[docs]</a><span class="k">def</span> <span class="nf">rand_quicksort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">_randomized_partition</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
         <span class="n">quicksort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>

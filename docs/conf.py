@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Algorithms documentation build configuration file, created by
-# sphinx-quickstart on Sat Dec 27 00:59:02 2014.
+# sphinx-quickstart on Sat Dec 27 03:17:41 2014.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -14,9 +14,6 @@
 
 import sys
 import os
-
-# Path to python source
-os.path.abspath("../Algorithms")
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -33,9 +30,8 @@ os.path.abspath("../Algorithms")
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
-    'sphinx.ext.todo',
     'sphinx.ext.coverage',
+    'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
 ]
 

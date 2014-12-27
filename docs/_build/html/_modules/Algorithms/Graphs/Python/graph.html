@@ -23,6 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
@@ -54,7 +55,7 @@
 
 <span class="c">#NOTE cannot have a node connected to itself</span>
 
-<div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph">[docs]</a><span class="k">class</span> <span class="nc">Graph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph">[docs]</a><span class="k">class</span> <span class="nc">Graph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -85,7 +86,7 @@
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Graph.add_node"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.add_node">[docs]</a>    <span class="k">def</span> <span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.add_node"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.add_node">[docs]</a>    <span class="k">def</span> <span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Adds a node to the graph with a key and data.</span>
 
 <span class="sd">        Args:</span>
@@ -107,7 +108,7 @@
         <span class="n">new_node</span> <span class="o">=</span> <span class="n">GraphNode</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">new_node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 </div>
-<div class="viewcode-block" id="Graph.add_edge"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.add_edge">[docs]</a>    <span class="k">def</span> <span class="nf">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_key</span><span class="p">,</span> <span class="n">t_key</span><span class="p">,</span> <span class="n">f_data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">t_data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.add_edge"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.add_edge">[docs]</a>    <span class="k">def</span> <span class="nf">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_key</span><span class="p">,</span> <span class="n">t_key</span><span class="p">,</span> <span class="n">f_data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">t_data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Adds an edge between the nodes with keys f_key and t_key</span>
 
 <span class="sd">        If the graph is directed the new edge will be directed from f_key</span>
@@ -136,7 +137,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">t_node</span><span class="p">][</span><span class="n">f_node</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span>
             <span class="n">t_node</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">f_node</span><span class="p">,</span> <span class="n">cost</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Graph.is_connected"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.is_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.is_connected"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.is_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Checks to see if the graph is connected.</span>
 
 <span class="sd">        For a directed graph this checks to see if the graph is</span>
@@ -166,10 +167,10 @@
 
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Graph.is_strongly_connected"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.is_strongly_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_strongly_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.is_strongly_connected"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.is_strongly_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_strongly_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strongly_connected_components</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">2</span>
 </div>
-<div class="viewcode-block" id="Graph.strongly_connected_components"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.strongly_connected_components">[docs]</a>    <span class="k">def</span> <span class="nf">strongly_connected_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.strongly_connected_components"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.strongly_connected_components">[docs]</a>    <span class="k">def</span> <span class="nf">strongly_connected_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Finds all of the strongly connected components in the graph.</span>
 
 <span class="sd">        Based on: http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm</span>
@@ -217,7 +218,7 @@
 
         <span class="k">return</span> <span class="n">SCC_list</span>
 </div>
-<div class="viewcode-block" id="Graph.bfs"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.bfs">[docs]</a>    <span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.bfs"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.bfs">[docs]</a>    <span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Iterates through the graph breadth first using a generator.</span>
 
 <span class="sd">        Args:</span>
@@ -242,7 +243,7 @@
                 <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
                     <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Graph.dfs"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.dfs">[docs]</a>    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.dfs"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.dfs">[docs]</a>    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Iterates through the graph depth first using a generator.</span>
 
 <span class="sd">        Args:</span>
@@ -267,7 +268,7 @@
                 <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
                     <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Graph.dijkstra"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.dijkstra">[docs]</a>    <span class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.dijkstra"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Graphs.Python.html#Algorithms.Graphs.Python.graph.Graph.dijkstra">[docs]</a>    <span class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Finds the shortest path from start to finish.</span>
 
 <span class="sd">        Args:</span>

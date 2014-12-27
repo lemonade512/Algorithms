@@ -23,6 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Algorithms 1.0 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
@@ -55,7 +56,7 @@
 
 <span class="kn">from</span> <span class="nn">Algorithms.Heaps.Python.node</span> <span class="kn">import</span> <span class="n">HeapNode</span>
 
-<div class="viewcode-block" id="BinaryHeap"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.binary_heap.BinaryHeap">[docs]</a><span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="BinaryHeap"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.binary_heap.BinaryHeap">[docs]</a><span class="k">class</span> <span class="nc">BinaryHeap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">=</span> <span class="mi">0</span>
@@ -73,7 +74,7 @@
             <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
             <span class="k">yield</span> <span class="n">node</span><span class="o">.</span><span class="n">data</span>
 
-<div class="viewcode-block" id="BinaryHeap.insert"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.binary_heap.BinaryHeap.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BinaryHeap.insert"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.binary_heap.BinaryHeap.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Inserts a node into the heap.</span>
 
 <span class="sd">        Args:</span>
@@ -94,7 +95,7 @@
             <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_idx</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">+=</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="BinaryHeap.pop"><a class="viewcode-back" href="../../../../test_docs/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.binary_heap.BinaryHeap.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BinaryHeap.pop"><a class="viewcode-back" href="../../../../output_rst/Algorithms.Heaps.Python.html#Algorithms.Heaps.Python.binary_heap.BinaryHeap.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Pops the minimum node off the heap.</span>
 
 <span class="sd">        Returns:</span>
