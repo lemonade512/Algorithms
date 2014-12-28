@@ -79,6 +79,14 @@ class TestBinaryHeap(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_parent_index_less_than_0(self):
+        h = BinaryHeap()
+        self.assertRaises(IndexError, h._parent_idx, -1)
+
+    def test_child_index_less_than_0(self):
+        h = BinaryHeap()
+        self.assertRaises(IndexError, h._child_indices, -1)
+
 
 if __name__ == "__main__":
     nose.main()

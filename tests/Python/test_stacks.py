@@ -5,7 +5,7 @@ import unittest
 import random
 import sys
 
-from Algorithms.StacksAndQueues.Python.stacks import LinkedListStack, ArrayStack, DoubleStack
+from Algorithms.StacksAndQueues.Python.stacks import LinkedListStack, ArrayStack, DoubleStack, StackFullError
 
 
 class TestLinkedListStack(unittest.TestCase):
@@ -102,6 +102,49 @@ class TestDoubleStack(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_push_front_and_back(self):
-        s = DoubleStack()
+        s = DoubleStack(10)
+        s.push_back(1)
+        s.push_back(2)
+        s.push_back(3)
 
+        s.push_front(4)
+        s.push_front(5)
+
+        actual_back = [s.pop_back() for n in range(3)]
+        actual_front = [s.pop_front() for n in range(2)]
+        expected_back = [3, 2, 1]
+        expected_front = [5, 4]
+
+        self.assertEqual(actual_back, expected_back)
+        self.assertEqual(actual_front, expected_front)
+
+    def test_stack_full_error(self):
+        s = DoubleStack(3)
+        s.push_back(1)
+        s.push_back(2)
+        s.push_front(3)
+
+        self.assertRaises(StackFullError, s.push_front, 4)
+        self.assertRaises(StackFullError, s.push_back, 4)
+
+    def test_pop_front_empty(self):
+        s = DoubleStack()
+        self.assertRaises(IndexError, s.pop_front)
+
+    def test_pop_back_empty(self):
+        s = DoubleStack()
+        self.assertRaises(IndexError, s.pop_back)
+
+    def test_repr(self):
+        s = DoubleStack(5)
+        s.push_front(1)
+        s.push_front(2)
+        s.push_front(3)
+        s.push_back(4)
+        s.push_back(5)
+
+        expected = '[1, 2, 3, 5, 4]'
+        actual = str(s)
+
+        self.assertEqual(actual, expected)
 

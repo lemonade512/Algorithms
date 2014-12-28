@@ -22,6 +22,20 @@ class Matrix(object):
         """ Returns the total number of elements. """
         return self.num_rows * self.num_cols
 
+    def __str__(self):
+        """ Returns a string representation of the matrix. """
+        result = ""
+        row_prefix = ""
+        for i in xrange(self.num_rows):
+            result += row_prefix
+            col_prefix = ""
+            for j in xrange(self.num_cols):
+                result += col_prefix + str(self[i, j])
+                col_prefix = " "
+            row_prefix = "\n"
+
+        return result
+
     def __getitem__(self, idx):
         """ Allows access like an array.
 
@@ -155,3 +169,4 @@ class Matrix(object):
                 output[i, j] = c
 
         return output
+

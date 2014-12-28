@@ -110,6 +110,15 @@ class TestMatrix(unittest.TestCase):
                               [1, 3, 4]])
         self.assertFalse(m == 5)
 
+    def test_str(self):
+        m = Matrix.from_list([[1, 2, 3],
+                              [2, 2, 2],
+                              [1, 4, 8]])
+
+        actual = str(m)
+        expected = "1 2 3\n2 2 2\n1 4 8"
+        self.assertEqual(actual, expected)
+
 
 if __name__ == "__main__":
     nose.main()

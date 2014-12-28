@@ -8,6 +8,12 @@ from Algorithms.LinkedLists.Python.linked_list import LinkedList
 
 class TestLinkedList(unittest.TestCase):
 
+    def test_append_cell(self):
+        l = LinkedList()
+        c = LinkedList.Cell(1)
+        l.append(c)
+        self.assertIn(1, l)
+
     def test_list_contains_num_after_append(self):
         l = LinkedList()
         l.append(2)
@@ -91,6 +97,22 @@ class TestLinkedList(unittest.TestCase):
         actual = [val for val in l]
 
         self.assertEqual(actual, expected)
+
+    def test_insert_sorted_cell(self):
+        l = LinkedList()
+        l.append(4)
+        l.append(6)
+        c = LinkedList.Cell(5)
+        l.insert_sorted(c)
+        self.assertEqual(l.index(5), 1)
+
+    def test_insert_cell(self):
+        l = LinkedList()
+        l.append(2)
+        l.append(3)
+        c = LinkedList.Cell(1)
+        l.insert(0, c)
+        self.assertEqual(l.index(1), 0)
 
     def test_delete_value(self):
         l = LinkedList()

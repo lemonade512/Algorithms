@@ -8,54 +8,27 @@ class SparseMatrix(Matrix):
         """ Class representing a row of values. """
 
         def __init__(self):
+            """ Initializes this row with default values and a sentinel entry. """
             self.row_number = -1
             self.next_row = None
             self.row_sentinel = SparseMatrix.MatrixEntry()
-
-        def __repr__(self):
-            result = "Row #" + str(self.row_number) + ":: "
-            top = self.row_sentinel
-            if top.next_entry != None:
-                top = top.next_entry
-            else:
-                print "Row Empty"
-                return
-
-            while top != None:
-                result += str(top) + " "
-                top = top.next_entry
-            return result
 
     class MatrixEntry(object):
         """ Class representing a singular entry in a row. """
 
         def __init__(self, value = None):
+            """ Initializes the entry with default values. """
             self.column_number = -1
             self.value = value
             self.next_entry = None
 
-        def __repr__(self):
-            return "(" + str(self.column_number) + ", " + str(self.value) + ")"
-
     def __init__(self, rows, cols, default_val=0):
+        """ Initializes the matrix with a size, a default value, and a row sentinel. """
         self.num_rows = rows
         self.num_cols = cols
         self.default = default_val
 
         self.sentinel = SparseMatrix.MatrixRow()
-
-    def __str__(self):
-        row_sentinel = self.sentinel
-        if row_sentinel.next_row != None:
-            row_sentinel = row_sentinel.next_row
-        else:
-            return "Matrix Empty"
-
-        string = ""
-        while row_sentinel != None:
-            string += "\n" + str(row_sentinel)
-            row_sentinel = row_sentinel.next_row
-        return string
 
     def __getitem__(self, idx):
         row, col = idx
@@ -157,10 +130,3 @@ class SparseMatrix(Matrix):
 
         return entry
 
-if __name__ == "__main__":
-    sparse_matrix = SparseMatrix()
-    sparse_matrix[0, 1] = 10
-    sparse_matrix[0, 4] = 5
-    sparse_matrix[3, 5] = 4
-    sparse_matrix[3, 2] = 0
-    print sparse_matrix
