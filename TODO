@@ -11,12 +11,13 @@
 # 12/27/14 DONE: Write tests for Matrix class
 # 12/27/14 TODO: Add transpose method to matrix class
 # 12/27/14 TODO: Add eigenvalue approximation to matrix class
-# 5/18/14  TODO: Make a triangular matrix class
-# 12/27/14 TODO: Document triangular matrix class
-# 12/27/14 TODO: Write Tests for triangular matrix class
-# 5/18/14  TODO: Make a Sparse matrix class
-# 12/27/14 TODO: Document Sparse matrix class
-# 12/27/14 TODO: Write Tests for Sparse matrix class
+# 12/28/14 TODO: Implement scalar multiplication for matrices
+# 5/18/14  DONE: Make a triangular matrix class
+# 12/27/14 DONE: Document triangular matrix class
+# 12/27/14 DONE: Write Tests for triangular matrix class
+# 5/18/14  DONE: Make a Sparse matrix class
+# 12/27/14 DONE: Document Sparse matrix class
+# 12/27/14 DONE: Write Tests for Sparse matrix class
 # 5/18/14  DONE: Add test cases to Arrays section (especially look at
 #               ArrayStats)
 # ------------------------------------------------------------------------------
@@ -36,7 +37,7 @@
 # ------------------------------------------------------------------------------
 # 11/8/14  TODO: Add a bin folder to hold all c++ executables
 # ------------------------------------------------------------------------------
-# 11/16/14 TODO: Make this generic so you can specify whether you want a max or a min heap?
+# 11/16/14 TODO: Make heaps generic so you can specify whether you want a max or a min heap?
 # 11/24/14 TODO: Implement the Tortoise and the Hare algorithm for finding loops in linked lists
 # ------------------------------------------------------------------------------
 # 12/26/14 TODO: Add tests for Graph.strongly_connected_components

@@ -3,6 +3,7 @@
 from Algorithms.Arrays.Python.matrix import Matrix
 
 class SparseMatrix(Matrix):
+    """ A sparse matrix used to save space with large matrices. """
 
     class MatrixRow(object):
         """ Class representing a row of values. """
@@ -31,6 +32,20 @@ class SparseMatrix(Matrix):
         self.sentinel = SparseMatrix.MatrixRow()
 
     def __getitem__(self, idx):
+        """ Allows accessing the matrix like an array.
+
+        Raises:
+            IndexError: If the index is out of bounds an IndexError will be raised
+
+        Example:
+            >>> m = SparseMatrix(5, 5)
+            >>> m[1, 2] = 3
+            >>> m[1, 2]
+            3
+            >>> m[3, 4]
+            0
+
+        """
         row, col = idx
 
         if row < 0 or row >= self.num_rows:
@@ -55,6 +70,20 @@ class SparseMatrix(Matrix):
         return array_entry.value
 
     def __setitem__(self, idx, value):
+        """ Allows setting an item like an array.
+
+        Raises:
+            IndexError: If the index is out of bounds an IndexError will be raised
+
+        Example:
+            >>> m = SparseMatrix(3, 3)
+            >>> m[1, 2]
+            0
+            >>> m[1, 2] = 5
+            >>> m[1, 2]
+            5
+
+        """
         row, col = idx
 
         if row < 0 or row >= self.num_rows:
@@ -64,7 +93,7 @@ class SparseMatrix(Matrix):
             raise IndexError("Col out of bounds")
 
         if value == self.default:
-            self.delete_idx(row, col)
+            del self[row, col]
             return
 
         array_row = self._find_row_before(row)
@@ -94,7 +123,23 @@ class SparseMatrix(Matrix):
         array_entry = array_entry.next_entry
         array_entry.value = value
 
-    def delete_idx(self, row, col):
+    def __delitem__(self, idx):
+        """ Allows removing an item using the del keyword.
+
+        Example:
+            >>> m = SparseMatrix(2, 2)
+            >>> m[0, 0]
+            0
+            >>> m[0, 0] = 2
+            >>> m[0, 0]
+            2
+            >>> del m[0, 0]
+            >>> m[0, 0]
+            0
+
+        """
+        row, col = idx
+
         array_row = self._find_row_before(row)
 
         if (array_row.next_row == None or array_row.next_row.row_number > row):

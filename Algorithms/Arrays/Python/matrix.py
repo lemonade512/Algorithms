@@ -22,7 +22,7 @@ class Matrix(object):
         """ Returns the total number of elements. """
         return self.num_rows * self.num_cols
 
-    def __str__(self):
+    def __repr__(self):
         """ Returns a string representation of the matrix. """
         result = ""
         row_prefix = ""
@@ -102,6 +102,14 @@ class Matrix(object):
 
         return new_mat
 
+    def __radd__(self, other):
+        """ Called when other + self returns NotImplemented.
+
+        This function simply calls self + other when other + self cannot be
+        performed.
+        """
+        return self + other
+
     def __mul__(self, other):
         """ Multiplies two matrices and returns the result.
 
@@ -161,7 +169,6 @@ class Matrix(object):
             A Matrix object created from the list
         """
         max_cols = max([len(r) for r in l])
-        print cls
         output = cls(len(l), max_cols)
 
         for i, r in enumerate(l):

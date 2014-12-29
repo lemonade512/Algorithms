@@ -91,7 +91,7 @@ class TestSparseMatrix(unittest.TestCase):
     def test_delete_entry_in_multi_entry_row(self):
         m = SparseMatrix.from_list([[1, 2],
                                     [4, 5, 6]])
-        m.delete_idx(1, 0)
+        del m[1, 0]
         expected = SparseMatrix.from_list([[1, 2],
                                            [0, 5, 6]])
 
@@ -100,7 +100,7 @@ class TestSparseMatrix(unittest.TestCase):
     def test_delete_entry_in_single_entry_row(self):
         m = SparseMatrix.from_list([[1, 2],
                                     [1]])
-        m.delete_idx(1, 0)
+        del m[1, 0]
         expected = SparseMatrix.from_list([[1, 2],
                                            [0]])
 
