@@ -2,7 +2,8 @@
 
 import math
 
-def FindPrimes(max_number):
+def find_primes(max_number):
+    """ Returns a list of all the primes less than the given number. """
     is_composite = []
     for j in xrange(0, max_number + 1):
         is_composite.append(False)
@@ -30,5 +31,5 @@ def FindPrimes(max_number):
     return primes
 
 if __name__ == "__main__":
-    #print str(FindPrimes(101))
-    print str(FindPrimes(10000))
+    #print str(find_primes(101))
+    print str(find_primes(10000))

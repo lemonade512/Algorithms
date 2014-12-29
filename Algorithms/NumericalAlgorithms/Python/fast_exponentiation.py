@@ -2,7 +2,16 @@
 
 import math
 
-def Exponentiate(value, exponent):
+def exponentiate(value, exponent):
+    """ Raises a value to some power.
+
+    After a small amount of testing, this method is actually slower
+    than the builtin python ** operator.
+
+    Args:
+        value: The base value
+        exponent: The number to raise value to
+    """
     powers = []
     value_to_powers = []
 
@@ -29,8 +38,8 @@ def Exponentiate(value, exponent):
     return result
 
 if __name__ == "__main__":
-    print str(Exponentiate(5, 7))
+    print str(exponentiate(5, 7))
     print str(5**7)
     print ""
-    print str(Exponentiate(728, 6))
+    print str(exponentiate(728, 6))
     print str(728**6)
