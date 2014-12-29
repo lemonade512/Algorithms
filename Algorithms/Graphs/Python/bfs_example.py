@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import Algorithms.Graphs.Python.graph
+import Algorithms.Graphs.Python.graph as graph
 
 """
    3--7
@@ -53,5 +53,5 @@ if __name__ == "__main__":
     g2.add_edge(4,5)
     g2.add_edge(-1,1)
     g2.add_edge(6,-1)
-    print "g2 Strongly connected:", g2.is_connected()
-    print "g2 Weakly connected:", g2.is_weakly_connected()
+    print "g2 Weakly connected:", g2.is_connected()
+    print "g2 Strongly connected:", g2.is_strongly_connected()
