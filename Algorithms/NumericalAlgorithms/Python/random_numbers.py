@@ -80,7 +80,7 @@ def fair_generator(min_num, max_num, seed=0):
 
 def randomize_array(array):
     """ Takes an array and scrambles it. """
-    for i in array:
+    for i in xrange(len(array)):
         j = random.randint(0, len(array)-1)
         array[i], array[j] = array[j], array[i]
 
