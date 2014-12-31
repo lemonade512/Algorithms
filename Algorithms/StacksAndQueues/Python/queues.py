@@ -5,8 +5,6 @@ from Algorithms.LinkedLists.Python.linked_list import LinkedList
 class QueueEmptyError(Exception):
     def __init__(self, value="queue is empty"):
         self.value = value
-    def __str__(self):
-        return repr(self.value)
 
 class LinkedListQueue:
 

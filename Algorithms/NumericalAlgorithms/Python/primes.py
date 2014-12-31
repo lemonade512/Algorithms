@@ -23,6 +23,9 @@ def is_prime(p, max_tests):
         A boolean value saying if p is prime or not. If p is prime then the
         function returns True, otherwise the function returns false.
     """
+    if p == 1:
+        return False
+
     for test in range(max_tests):
         n = random.randint(1, p-1)
         if (n**(p-1) % p != 1):
@@ -135,20 +138,3 @@ def random_with_n_digits(n):
     range_end = (10**n)-1
     return random.randint(range_start, range_end)
 
-if __name__ == "__main__":
-    print "Factors of 5: " + str(find_factors_slow(6))
-    print "Factors of 110: " + str(find_factors_slow(110))
-    print "Factors of 254: " + str(find_factors_slow(254))
-    print "Factors of 504: " + str(find_factors_fast(504))
-    print "Factors of 50230492: " + str(find_factors_fast(50230492))
-    print "Factors of 5023949230290: " + str(find_factors_fast(5023949230290))
-
-    #print str(find_primes(101))
-    print str(find_primes(10000))
-
-    print "1377 is prime: " + str(is_prime(1377, 100))
-    print "1523 is prime: " + str(is_prime(1523, 100))
-    print "1277 is prime: " + str(is_prime(1277, 100))
-    print ""
-    print "3 digit prime: " + str(find_prime(3, 10))
-    print "5 digit prime: " + str(find_prime(5, 10))
