@@ -2,3 +2,5 @@
 *.swp
 *.exe
 *.coverage
+
+tests/Python/random_numbers.txt
