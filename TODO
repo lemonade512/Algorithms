@@ -12,6 +12,7 @@
 # 12/27/14 TODO: Add transpose method to matrix class
 # 12/27/14 TODO: Add eigenvalue approximation to matrix class
 # 12/28/14 TODO: Implement scalar multiplication for matrices
+# 12/28/14 TODO: Implement a Gaussian Elimination algorithm for solving linear systems
 # 5/18/14  DONE: Make a triangular matrix class
 # 12/27/14 DONE: Document triangular matrix class
 # 12/27/14 DONE: Write Tests for triangular matrix class
@@ -46,3 +47,13 @@
 # 12/26/14 TODO: Add a method to Graph to detect cycles
 # ----------------------------------------------------------------------------------------------
 # 12/27/14 TODO: Write proofs for algorithms in the docs
+# 12/29/14 TODO: Implement a cryptographically secure PRNG. Perhaps use the paper in the following link
+#				 https://www.schneier.com/paper-yarrow.pdf
+# ----------------------------------------------------------------------------------------------
+# Algorithms.NumericalAlgorithms.Python.random.py
+# 12/29/14 TODO write a test to make sure random_generator does not loop for at least N iterations
+#               Create a set and add all generated numbers to the set. Then, check set length to see if there were duplicates.
+# 12/29/14 TODO write a test to make sure fair_generator does not produce alternatively odd and even results
+# 12/29/14 TODO write a test to make sure fair_generator produces approximately even distribution of odd and
+#               even numbers
+# 12/29/14 TODO write a proof that every other number of an LCG is even
