@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from linked_list import LinkedList as LL
+from Algorithms.LinkedLists.Python.linked_list import LinkedList as LL
 
 def has_loop_marking(start):
     has_loop = False

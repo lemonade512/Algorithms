@@ -3,6 +3,15 @@
 import math
 
 def rectangle_rule(function, xmin, xmax, num_intervals):
+    """ Integrates over a function using Riemann Sums with rectangles.
+
+    Args:
+        function: The function to integrate over
+        xmin: The starting value of the range to integrate over
+        xmax: The ending value of the range to integrate over
+        num_intervals: How many intervals to use.
+                       More intervals = higher precision
+    """
     dx = float(xmax - xmin) / num_intervals
 
     total_area = 0.0
@@ -14,6 +23,15 @@ def rectangle_rule(function, xmin, xmax, num_intervals):
     return total_area
 
 def trapezoid_rule(function, xmin, xmax, num_intervals):
+    """ Integrates over a function using Riemann Sums with trapezoids.
+
+    Args:
+        function: The function to integrate over
+        xmin: The starting value of the range to integrate over
+        xmax: The ending value of the range to integrate over
+        num_intervals: How many intervals to use.
+                       More intervals = higher precision
+    """
     dx = float(xmax - xmin) / num_intervals
 
     total_area = 0.0
@@ -25,6 +43,17 @@ def trapezoid_rule(function, xmin, xmax, num_intervals):
     return total_area
 
 def adaptive_trapezoid_rule(function, xmin, xmax, num_intervals, max_err):
+    """ Integrates over a function using Riemann Sums with adaptive trapezoids.
+
+    Args:
+        function: The function to integrate over
+        xmin: The starting value of the range to integrate over
+        xmax: The ending value of the range to integrate over
+        num_intervals: How many intervals to use.
+                       More intervals = higher precision
+        max_err: The maximum error tolerance for each interval. A lower tolerance
+                 gives higher precision results
+    """
     dx = float(xmax - xmin) / num_intervals
     total = 0.0
 
@@ -37,6 +66,10 @@ def adaptive_trapezoid_rule(function, xmin, xmax, num_intervals, max_err):
     return total_area
 
 def slice_area(function, x1, x2, max_err):
+    """ Recursively slices a function given a range and max error.
+
+    This is used by the adaptive trapezoid rule.
+    """
     y1 = function(float(x1))
     y2 = function(float(x2))
     xm = float(x1 + x2) / 2
@@ -57,21 +90,6 @@ def slice_area(function, x1, x2, max_err):
         return a1 + a2
 
 def my_func(x):
+    """ A function to test with. """
     return 1+x+math.sin(2*x)
 
-if __name__ == "__main__":
-    print "Rectangles"
-    print "Area under (1+x+sin(2x)) from 0 to 5 with 10 intervals::"
-    print "    " + str(rectangle_rule(my_func, 0, 5, 10))
-    print "Area under (1+x+sin(2x)) from 0 to 5 with 50 intervals::"
-    print "    " + str(rectangle_rule(my_func, 0, 5, 50))
-    print ""
-    print "Trapezoids"
-    print "Area under (1+x+sin(2x)) from 0 to 5 with 10 intervals::"
-    print "    " + str(trapezoid_rule(my_func, 0, 5, 10))
-    print ""
-    print "Adaptive"
-    print "Area under (1+x+sin(2x)) from 0 to 5 with 2 initial intervals"
-    print "and a max error of 1%::"
-    print "    " + str(adaptive_trapezoid_rule(my_func, 0, 5, 2, 0.01))
-    print "    " + str(adaptive_trapezoid_rule(my_func, 0, ))

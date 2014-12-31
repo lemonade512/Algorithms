@@ -37,9 +37,3 @@ def exponentiate(value, exponent):
 
     return result
 
-if __name__ == "__main__":
-    print str(exponentiate(5, 7))
-    print str(5**7)
-    print ""
-    print str(exponentiate(728, 6))
-    print str(728**6)

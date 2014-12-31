@@ -24,8 +24,8 @@ def is_prime(p, max_tests):
         function returns True, otherwise the function returns false.
     """
     for test in range(max_tests):
-        rand = random.randint(1, p-1)
-        if (rand**(p-1) % p != 1):
+        n = random.randint(1, p-1)
+        if (n**(p-1) % p != 1):
             return False
 
     return True
