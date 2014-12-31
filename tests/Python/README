@@ -1,0 +1,3 @@
+Test a list of random numbers using
+
+	dieharder -f <filename> -a
