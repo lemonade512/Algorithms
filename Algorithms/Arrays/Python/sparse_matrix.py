@@ -3,7 +3,16 @@
 from Algorithms.Arrays.Python.matrix import Matrix
 
 class SparseMatrix(Matrix):
-    """ A sparse matrix used to save space with large matrices. """
+    """ A sparse matrix used to save space with large matrices.
+
+    Attributes:
+        num_rows: The number of rows in the matrix.
+        num_cols: The number of columns in the matrix.
+        default: The default value to return when accessing elements
+                 that have not yet been set.
+        sentinel: The first dummy row of the matrix. This makes some
+                  operations a little bit easier.
+    """
 
     class MatrixRow(object):
         """ Class representing a row of values. """

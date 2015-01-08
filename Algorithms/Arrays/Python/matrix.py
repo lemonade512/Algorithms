@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
 class Matrix(object):
+    """ A Matrix object that can perform most of the commonly used matrix
+    operations.
+
+    Attributes:
+        num_rows: The number of rows in the matrix.
+        num_cols: The number of columns in the matrix.
+    """
 
     def __init__(self, rows, cols, default_val=0):
         """ Initializes a matrix with size rows x cols.

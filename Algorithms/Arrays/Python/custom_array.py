@@ -18,6 +18,9 @@ class Array(object):
 
     Also, this serves as a good baseline for what a similar class in other languages
     (like c++ or haskell) should look like.
+
+    Attributes:
+        arr (list): The list of items in the array.
     """
 
     def __init__(self, start_vals=None):
