@@ -46,8 +46,12 @@ class Matrix(object):
     def __getitem__(self, idx):
         """ Allows access like an array.
 
-        For now slicing is not supported but this would be a good
-        addition for the future.
+        You are also able to access each row of the matrix. To do this
+        just pass a singleton tuple like so:
+            >>> m = Matrix(3, 3)
+            >>> m[0, 1] = 2
+            >>> m[0,]
+            [0, 2, 0]
 
         Args:
             idx (tuple): The indices of the value to get
@@ -59,7 +63,10 @@ class Matrix(object):
             2
 
         """
-        return self.rows[idx[0]][idx[1]]
+        if len(idx) == 1:
+            return self.rows[idx[0]]
+        else:
+            return self.rows[idx[0]][idx[1]]
 
     def __setitem__(self, idx, val):
         """ Sets an element in the matrix.

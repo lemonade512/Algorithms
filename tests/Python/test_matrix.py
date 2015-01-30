@@ -52,6 +52,24 @@ class TestMatrix(unittest.TestCase):
         m[0, 0] = 1
         self.assertEqual(m[0, 0], 1)
 
+    def test_get_matrix_row(self):
+        mat = [[1, 2, 3],
+               [4, 5, 6],
+               [7, 8, 9]]
+        m = Matrix.from_list(mat)
+
+        expected = [4, 5, 6]
+        self.assertEqual(m[1,], expected)
+
+    def test_get_matrix_slicing(self):
+        mat = [[1,2,3],
+               [4,5,6],
+               [7,8,9]]
+        m = Matrix.from_list(mat)
+
+        expected = [2,3]
+        self.assertEqual(m[0, 1:3], expected)
+
     def test_add_matrices(self):
         mat = [[1, 2, 1],
                [2, 4, 6],
@@ -121,4 +139,4 @@ class TestMatrix(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    nose.main()
+    nose.run(argv=["--tests=", __file__, "--verbosity=2"])

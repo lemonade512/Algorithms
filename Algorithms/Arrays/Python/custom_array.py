@@ -17,7 +17,7 @@ class Array(object):
     array class that added the properties std_deviation, average, and sample_variance.
 
     Also, this serves as a good baseline for what a similar class in other languages
-    (like c++ or haskell) should look like.
+    (like c++ or java) should look like.
 
     Attributes:
         arr (list): The list of items in the array.
