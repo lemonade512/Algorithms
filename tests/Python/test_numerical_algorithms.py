@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 
+import sys
+sys.path.insert(0, "../..")
+
 import nose
 import unittest
-import math
 import random
 
 from Algorithms.NumericalAlgorithms.Python.fast_exponentiation import exponentiate
 from Algorithms.NumericalAlgorithms.Python.gcd import gcd
 from Algorithms.NumericalAlgorithms.Python.numerical_integration import rectangle_rule, trapezoid_rule, adaptive_trapezoid_rule, my_func
 from Algorithms.NumericalAlgorithms.Python.primes import is_prime, find_prime, find_primes, find_factors_fast, find_factors_slow
+from Algorithms.NumericalAlgorithms.Python.division import long_division
 
 
 class TestExponentiate(unittest.TestCase):
@@ -144,6 +147,25 @@ class TestPrimes(unittest.TestCase):
         actual = find_factors_fast(2**12 * 3**6 * 5)
         expected = [2] * 12 + [3] * 6 + [5]
         self.assertEqual(actual, expected)
+
+
+class TestDivision(unittest.TestCase):
+
+    def test_long_division_integer_result(self):
+        actual = long_division(21, 7)
+        self.assertEqual(actual, (3, None, None))
+
+    def test_long_division_non_repeating(self):
+        actual = long_division(1, 8)
+        self.assertEqual(actual, (0, 125, None))
+
+    def test_long_division_repeating_only(self):
+        actual = long_division(1,7)
+        self.assertEqual(actual, (0, None, 142857))
+
+    def test_long_division_repeating_and_non_repeating(self):
+        actual = long_division(1, 6)
+        self.assertEqual(actual, (0, 1, 6))
 
 
 if __name__ == "__main__":
