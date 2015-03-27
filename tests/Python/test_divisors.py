@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+import sys
+sys.path.insert(0, "../..")
+
 import nose
 import unittest
 
@@ -15,6 +18,10 @@ class TestDivisors(unittest.TestCase):
     def test_divisors_of_small_num(self):
         divisors = alg.divisors(28)
         self.assertEqual(divisors, [1,2,4,7,14,28])
+
+    def test_divisors_of_twelve(self):
+        divisors = alg.divisors(12)
+        self.assertEqual(divisors, [1,2,3,4,6,12])
 
     def test_divisors_of_large_num(self):
         divisors = alg.divisors(4532532)

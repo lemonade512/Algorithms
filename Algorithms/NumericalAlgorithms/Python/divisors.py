@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from math import sqrt
+from math import sqrt, ceil
 
 def divisors(n):
     """ Calculates the divisors of `n` and returns the list.
@@ -18,7 +18,7 @@ def divisors(n):
 
     """
     output = list()
-    for i in range(1, int(sqrt(n))):
+    for i in range(1, int(ceil(sqrt(n)))):
         if n == (n / i) * i:
             if i * i == n or i == 1:
                 output.append(i)
