@@ -18,7 +18,7 @@ def divisors(n):
 
     """
     output = list()
-    for i in range(1, int(ceil(sqrt(n)))):
+    for i in range(1, int(ceil(sqrt(n)))+1):
         if n == (n / i) * i:
             if i * i == n or i == 1:
                 output.append(i)
@@ -27,4 +27,4 @@ def divisors(n):
                 output.append(n/i)
     output.append(n)
 
-    return sorted(output)
+    return sorted(list(set(output)))
