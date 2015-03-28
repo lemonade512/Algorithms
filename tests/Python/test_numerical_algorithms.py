@@ -9,6 +9,7 @@ from Algorithms.NumericalAlgorithms.Python.gcd import gcd
 from Algorithms.NumericalAlgorithms.Python.numerical_integration import rectangle_rule, trapezoid_rule, adaptive_trapezoid_rule, my_func
 from Algorithms.NumericalAlgorithms.Python.primes import is_prime, find_prime, find_primes, find_factors_fast, find_factors_slow
 from Algorithms.NumericalAlgorithms.Python.division import long_division
+from Algorithms.NumericalAlgorithms.Python.partition import partitions
 
 
 class TestExponentiate(unittest.TestCase):
@@ -163,6 +164,13 @@ class TestDivision(unittest.TestCase):
     def test_long_division_repeating_and_non_repeating(self):
         actual = long_division(1, 6)
         self.assertEqual(actual, (0, 1, 6))
+
+
+class TestPartition(unittest.TestCase):
+
+    def test_partition(self):
+        partition_list = [p for p in partitions(4)]
+        self.assertEqual(partition_list, [[1,1,1,1],[1,1,2],[2,2],[1,3],[4]])
 
 
 if __name__ == "__main__":
