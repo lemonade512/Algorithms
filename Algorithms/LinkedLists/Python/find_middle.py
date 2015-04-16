@@ -16,8 +16,6 @@ def find_middle(l):
 
     fast_ptr = l.top.next_
     slow_ptr = l.top.next_
-    print "fast:", fast_ptr, "next_", fast_ptr.next_
-    print "slow:", slow_ptr
     while fast_ptr.next_ is not None:
         fast_ptr = fast_ptr.next_
         if fast_ptr.next_ == None:
