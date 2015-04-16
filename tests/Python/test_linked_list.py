@@ -4,6 +4,7 @@ import nose
 import unittest
 
 from Algorithms.LinkedLists.Python.linked_list import LinkedList
+from Algorithms.LinkedLists.Python.find_middle import find_middle
 
 
 class TestLinkedList(unittest.TestCase):
@@ -217,3 +218,40 @@ class TestLinkedList(unittest.TestCase):
         self.assertIsNone(l.delete(5))
 
 
+class TestFindMiddle(unittest.TestCase):
+
+    def test_empty_list(self):
+        l = LinkedList()
+        mid = find_middle(l)
+
+        self.assertEqual(mid, None)
+
+    def test_single_element_list(self):
+        l = LinkedList()
+        l.append(1)
+        mid = find_middle(l)
+
+        self.assertEqual(mid, 1)
+
+    def test_even_list(self):
+        l = LinkedList()
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        l.append(4)
+        mid = find_middle(l)
+
+        self.assertEqual(mid, 2)
+
+    def test_odd_list(self):
+        l = LinkedList()
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        mid = find_middle(l)
+
+        self.assertEqual(mid, 2)
+
+
+if __name__ == "__main__":
+    nose.run(argv=["--tests=", __file__, "--verbosity=2"])
