@@ -4,3 +4,5 @@
 *.coverage
 
 tests/Python/random_numbers.txt
+
+*.o
