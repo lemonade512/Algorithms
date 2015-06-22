@@ -57,3 +57,6 @@
 # 12/29/14 TODO write a test to make sure fair_generator produces approximately even distribution of odd and
 #               even numbers
 # 12/29/14 TODO write a proof that every other number of an LCG is even
+# ----------------------------------------------------------------------------------------------
+# 6/15/15  TODO Write linear regression algorithm from Machine Learning
+#
