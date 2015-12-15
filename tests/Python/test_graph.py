@@ -71,14 +71,27 @@ class TestGraph(unittest.TestCase):
 
         g_list = [1, 2, 3, 4, 7]
         bfs_list = []
-        for n in g.bfs(3):
-            bfs_list.append(n)
+        g.bfs(3, bfs_list.append)
 
         bfs_list.sort()
         self.assertEqual(bfs_list, g_list)
 
     def test_bfs_returns_data_of_items(self):
-        pass
+        g = Graph()
+        g.add_edge(1, 2)
+        g.add_edge(2, 3)
+
+        bfs_list = []
+        g.bfs(1, bfs_list.append)
+        self.assertTrue(type(bfs_list[0]) == int)
+
+        g = Graph()
+        g.add_edge(float(1), float(2))
+        g.add_edge(float(2), float(3))
+
+        bfs_list = []
+        g.bfs(float(1), bfs_list.append)
+        self.assertTrue(type(bfs_list[0]) == float)
 
     def test_dfs_touches_all_connected_items(self):
         g = Graph()
@@ -93,14 +106,27 @@ class TestGraph(unittest.TestCase):
 
         g_list = [1, 2, 3, 4, 7]
         dfs_list = []
-        for n in g.dfs(3):
-            dfs_list.append(n)
+        g.dfs(3, dfs_list.append)
 
         dfs_list.sort()
         self.assertEqual(dfs_list, g_list)
 
     def test_dfs_returns_data_of_items(self):
-        pass
+        g = Graph()
+        g.add_edge(1, 2)
+        g.add_edge(2, 3)
+
+        dfs_list = []
+        g.dfs(1, dfs_list.append)
+        self.assertTrue(type(dfs_list[0]) == int)
+
+        g = Graph()
+        g.add_edge(float(1), float(2))
+        g.add_edge(float(2), float(3))
+
+        dfs_list = []
+        g.dfs(float(1), dfs_list.append)
+        self.assertTrue(type(dfs_list[0]) == float)
 
     def test_dijkstra(self):
         #NOTE graph taken from https://www.youtube.com/watch?v=UG7VmPWkJmA

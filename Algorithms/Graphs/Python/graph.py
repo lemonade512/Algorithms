@@ -112,8 +112,7 @@ class Graph(object):
         start = graph.nodes.keys()[0]
 
         visited = []
-        for n in graph.bfs(start.key):
-            visited.append(n)
+        graph.bfs(start.key, visited.append)
 
         return len(visited) == len(graph.nodes)
 
@@ -168,14 +167,14 @@ class Graph(object):
 
         return SCC_list
 
-    def bfs(self, start):
-        """ Iterates through the graph breadth first using a generator.
+    def bfs(self, start, func):
+        """ Calls `func` for each node in breadth first order
 
         Args:
             start: The key of the node to start the search from.
-
-        Yields:
-            Each node's data as you search through the graph.
+            func: The function to call for each node. This function should
+                accept a single argument, the data of each node. The nodes
+                will be passed to the function in breadth first order.
 
         Raises:
             ValueError: If start cannot be found a ValueError is raised.
@@ -188,19 +187,19 @@ class Graph(object):
         while queue:
             current_node = queue.pop(0)
             visited.append(current_node)
-            yield current_node.data
+            func(current_node.data)
             for n in self.nodes[current_node]:
                 if n not in visited:
                     queue.append(n)
 
-    def dfs(self, start):
-        """ Iterates through the graph depth first using a generator.
+    def dfs(self, start, func):
+        """ Calls `func` for each node in breadth first order
 
         Args:
             start: The key of the node to start the search from.
-
-        Yields:
-            Each node's data as you search through the graph.
+            func: The function to call for each node. This function should
+                accept a single argument, the data of each node. The nodes
+                will be passed to the function in breadth first order.
 
         Raises:
             ValueError: If start cannot be found a ValueError is raised.
@@ -213,7 +212,7 @@ class Graph(object):
         while queue:
             current_node = queue.pop()
             visited.append(current_node)
-            yield current_node.data
+            func(current_node.data)
             for n in self.nodes[current_node]:
                 if n not in visited:
                     queue.append(n)

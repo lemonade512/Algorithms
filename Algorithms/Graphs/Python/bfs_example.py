@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join("../../../", os.path.dirname(__file__))))
+
 import Algorithms.Graphs.Python.graph as graph
 
 """
@@ -35,13 +39,14 @@ if __name__ == "__main__":
     g.add_edge(7,3)
     g.add_edge(3,7)
 
-    for n in g.bfs(2):
-        print n
+    def p(x):
+        print x
+
+    g.bfs(2, p)
 
     print "\n"
 
-    for n in g.dfs(2):
-        print n
+    g.dfs(2, p)
 
     print "\n"
     print "Is connected:", g.is_connected()
