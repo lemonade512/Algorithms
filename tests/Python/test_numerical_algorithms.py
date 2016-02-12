@@ -42,6 +42,12 @@ class TestGCD(unittest.TestCase):
     def test_gcd_4851_and_3003(self):
         self.assertEqual(gcd(4851, 3003), 231)
 
+    def test_gcd_more_than_two_numbers(self):
+        self.assertEqual(gcd(70, 98, 105), 7)
+
+    def test_gcd_lots_of_numbers(self):
+        self.assertEqual(gcd(50, 500, 5000, 50000, 100), 50)
+
 
 class TestIntegration(unittest.TestCase):
     """ NOTE: For all of the following test functions, the variable 'expected' is
