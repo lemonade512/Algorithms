@@ -77,6 +77,16 @@ def find_primes(max_number):
 
     return primes
 
+def prime_sieve(limit):
+    a = [True] * limit
+    a[0] = a[1] = False
+
+    for (i, isprime) in enumerate(a):
+        if isprime:
+            yield i
+            for n in xrange(i*i, limit, i):
+                a[n] = False
+
 def find_factors_slow(number):
     """ Finds the prime factorization of a number.
 

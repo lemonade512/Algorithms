@@ -7,7 +7,7 @@ import random
 from Algorithms.NumericalAlgorithms.Python.fast_exponentiation import exponentiate
 from Algorithms.NumericalAlgorithms.Python.gcd import gcd
 from Algorithms.NumericalAlgorithms.Python.numerical_integration import rectangle_rule, trapezoid_rule, adaptive_trapezoid_rule, my_func
-from Algorithms.NumericalAlgorithms.Python.primes import is_prime, find_prime, find_primes, find_factors_fast, find_factors_slow
+from Algorithms.NumericalAlgorithms.Python.primes import is_prime, find_prime, find_primes, find_factors_fast, find_factors_slow, prime_sieve
 from Algorithms.NumericalAlgorithms.Python.division import long_division
 from Algorithms.NumericalAlgorithms.Python.partition import partitions
 
@@ -107,6 +107,11 @@ class TestPrimes(unittest.TestCase):
 
     def setUp(self):
         random.seed(50)
+
+    def test_primes_sieve(self):
+        expected = [2,3,5,7,11,13,17,19]
+        primes = [i for i in prime_sieve(20)]
+        self.assertEqual(primes, expected)
 
     def test_is_prime(self):
         self.assertTrue(is_prime(5, 10))
